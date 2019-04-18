@@ -28,7 +28,7 @@ class EncryptionDetails {
      */
     private int[] key2;
 
-    //-------------------------------------------------------------------------------------------------
+    
     // Constructor Methods
 
     /**
@@ -49,7 +49,7 @@ class EncryptionDetails {
         key1        = generateKey1();
         key2        = generateKey2();
     }
-    //==================================================================================================
+    
     /**
      * <h2>Generation of the first round key</h2>
      * <p>This method creates the new key by using nibble
@@ -68,7 +68,6 @@ class EncryptionDetails {
         //System.out.println(key);
         return key;
     }
-    //------------------------------------------------------------------------------------------------------
 
     /**
      * <h2>Generation of the second round key</h2>
@@ -88,7 +87,7 @@ class EncryptionDetails {
         //System.out.println(key);
         return key;
     }
-    //==================================================================================================
+    
     // Setter Method
 
     /**
@@ -100,7 +99,7 @@ class EncryptionDetails {
         key0 = Utilities.stringToIntArray(key);
     }
 
-    //==================================================================================================
+    
     // Getter Methods for Key0,Key1,Key2
 
     /**
@@ -130,7 +129,7 @@ class EncryptionDetails {
         return key2;
     }
 
-    //==================================================================================================
+    
     // toString Methods using the intArraytoString Method
     // in class Utilities/ ConversionUtilities
 

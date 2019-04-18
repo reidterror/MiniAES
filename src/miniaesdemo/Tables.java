@@ -71,8 +71,7 @@ class Tables {
                 {0, 15, 13, 2, 9, 6, 4, 8, 1, 14, 12, 3, 8, 7, 5, 10}
         };
     }
-
-    //==================================================================================================
+   
     //Getter Methods for the NibbleSubTable and MixColumnsTable
 
     /**
@@ -96,7 +95,6 @@ class Tables {
         return multiplicationTable[row][column];
     }
 
-    //==================================================================================================
     /**
      * <h2>Getter method for the values in the inverse NibbleSub table </h2>
      * <p>This methods acquire its vlaues by using an enchanted for

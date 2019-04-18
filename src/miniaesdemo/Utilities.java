@@ -31,8 +31,7 @@ public class Utilities {
         // Returns an Array that is split on every space
         return stringToConvert.split("\\s+");
     }
-    //------------------------------------------------------------------------------------------------------
-
+    
     /**
      *  <h2>String Array to Integer Array</h2>
      *  <p> Methods that converts a string array to integer array
@@ -59,8 +58,7 @@ public class Utilities {
         }
         return intArray;
     }
-    //------------------------------------------------------------------------------------------------------
-
+    
     /**
      *  <h2>String to Integer Array </h2>
      *  <p>Method that uses the previous methods to simplify the process of
@@ -74,7 +72,6 @@ public class Utilities {
     public static int[] stringToIntArray(String stringToConvert) {
         return stringArrayToIntArray(stringToStringArray(stringToConvert));
     }
-
 
     //==================================================================================================
     // From Integer Array to String ====================================================================
@@ -107,8 +104,7 @@ public class Utilities {
 
         return stringArray;
     }
-    //------------------------------------------------------------------------------------------------------
-
+    
     /**
      * <h2>Formatting the binary string</h2>
      * <p>The methods is used to correctly assign a binary string with the
@@ -131,8 +127,7 @@ public class Utilities {
         }
         return binaryString;
     }
-    //------------------------------------------------------------------------------------------------------
-
+    
     /**
      *  <h2>String Array to String</h2>
      *  <p>A method that converts a string array of four elements
@@ -158,8 +153,7 @@ public class Utilities {
 
         return convertedString.substring(0, convertedString.length() - 1);
     }
-    //------------------------------------------------------------------------------------------------------
-
+    
     /**
      *  <h2>Integer Array to String</h2>
      *  <p>Method that uses the previous methods to simplify the process of
@@ -171,5 +165,17 @@ public class Utilities {
      */
     public static String intArrayToString(int[] intArrayToConvert) {
         return stringArrayToString(intArrayToStringArray(intArrayToConvert));
+    }
+    
+    public static void printLogo() {
+        System.out.println("" +
+                    "   _______                         _____        _  _                _        \n" +
+                    "  |__   __|                       / ____|      | |(_)              | |       \n" +
+                    "     | |  ___   __ _  _ __ ___   | |      __ _ | | _   __ _  _   _ | |  __ _ \n" +
+                    "     | | / _ \\ / _` || '_ ` _ \\  | |     / _` || || | / _` || | | || | / _` |\n" +
+                    "     | ||  __/| (_| || | | | | | | |____| (_| || || || (_| || |_| || || (_| |\n" +
+                    "     |_| \\___| \\__,_||_| |_| |_|  \\_____|\\__,_||_||_| \\__, | \\__,_||_| \\__,_|\n" +
+                    "                                                       __/ |                 \n" +
+                    "                                                      |___/                  ");
     }
 }

@@ -7,6 +7,8 @@
 */
 package miniaesdemo;
 
+import javafx.util.Pair;
+
 /**
  * <h1>The Mini-AES class implements a minified version of the AES encryption algorithm.</h1>
  *
@@ -40,8 +42,7 @@ class MiniAES {
 
         return result;
     }
-    //==================================================================================================
-
+    
     /**
      * <h1>NibbleSub Section</h1>
      * <h2>Method that substitutes every nibble</h2>
@@ -63,8 +64,7 @@ class MiniAES {
 
         return result;
     }
-    //==================================================================================================
-
+    
     /**
      * <h1>Inverse NibbleSub Section</h1>
      * <h2>Method that substitutes every nibble in inverse order</h2>
@@ -87,8 +87,7 @@ class MiniAES {
 
         return result;
     }
-    //==================================================================================================
-
+    
     /**
      * <h1>ShiftRows Section</h1>
      * <h2>Methods that shifts the last two elements in the array</h2>
@@ -110,8 +109,7 @@ class MiniAES {
 
         return plainText;
     }
-    //==================================================================================================
-
+    
     /**
      * <H1>MixColumns Section</H1>
      * <h2>Method that changes the elements of the plainText</h2>
@@ -147,8 +145,7 @@ class MiniAES {
 
         return result;
     }
-    //==================================================================================================
-
+    
     /**
      * <h1>The Encryption Process</h1>
      * <h2>This method encapsulates the operations done
@@ -179,8 +176,7 @@ class MiniAES {
         int[] keyArray = Utilities.stringToIntArray(key);
 
         EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
-
-        //-----------------------------------------------------------------------------------------------
+        
         //Adding the Round Key Zero
         plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey0());
 
@@ -207,8 +203,45 @@ class MiniAES {
 
         return Utilities.intArrayToString(plainTextArray);
     }
-    //==================================================================================================
+    
+    public static Pair Encrypt(String plainText, boolean generateRandomKey) {
+        RandomKey randomKey = new RandomKey();
+        String key = randomKey.getRandomKeyString();
+        //Converting the plain Text and the key to Integer Arrays
+        int[] plainTextArray = Utilities.stringToIntArray(plainText);
+        int[] keyArray = Utilities.stringToIntArray(key);
 
+        EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
+        
+        //Adding the Round Key Zero
+        plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey0());
+
+        //Goes through the nibble substitution
+        plainTextArray = NibbleSub(plainTextArray);
+
+        //The last two nibbles are shifted
+        plainTextArray = ShiftRows(plainTextArray);
+
+        //Goes through the mixing of the columns using the Multiplication Table
+        plainTextArray = MixColumns(plainTextArray);
+
+        //Adding Round Key One
+        plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey1());
+
+        //Goes through the nibble substitution again
+        plainTextArray = NibbleSub(plainTextArray);
+
+        //The last two nibbles are shifted again
+        plainTextArray = ShiftRows(plainTextArray);
+
+        //Adding the final Round Key Two
+        plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey2());
+        
+        Pair<String, String> result = new Pair<>(key, Utilities.intArrayToString(plainTextArray));
+        
+        return result;
+    }
+    
     /**
      * <h1>The Decryption Process</h1>
      * <h2>This method encapsulates the operations done
@@ -242,7 +275,6 @@ class MiniAES {
 
         EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
 
-        //-----------------------------------------------------------------------------------------------
         //Adding the final Round Key - Key Two
         cipherTextArray = AddRoundKey(cipherTextArray, encryptionDetails.getKey2());
 
