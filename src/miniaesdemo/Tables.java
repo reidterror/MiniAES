@@ -1,39 +1,44 @@
-package miniaesdemo;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * <h1>Class that stores the different tables in the Mini-Aes</h1>
+ * <h1>Contains nibble substitution table and mix column multiplication table.</h1>
  *
  *  @author Team Caligula
  *  @version 0.1
  *  @since   02.04.2019
  */
-// Class for the storage and use of the tables in the Mini-AES
+
+package miniaesdemo;
+
+import java.util.HashMap;
+import java.util.Map;
+
 class Tables {
-   /* /**
+   /**
      * <h1>The following tables are for:</h1>
      * <ol>
-     *     <il>NibbleSub Section</il>
-     *     <il>MixColumns Section</il>
+     *     <il>Nibble Substitution Table</il>
+     *     <il>MixColumns Multiplication Table</il>
      * </ol>
      */
-    // Creating a final HashMap Value for the NibbleSub Table
-
+    
     /**
      *
      */
+    // Creating a constant HashMap object for the nibble substitution table.
     private static final HashMap<Integer, Integer> nibbleSubTable;
-    // Creating a final HashMap Value for the Mixcolumns Table
-
+    
     /**
      *
      */
+    // Creating a constant 2 dimensional integer array for the mixcolumns multiplication table.
     private static final int[][] multiplicationTable;
 
+    /**
+     *
+     */
+    //Constructor for the table class.
     static {
 
-        // NibbelSub Table in HashMap
+        // Initializing the HashMap object.
         nibbleSubTable = new HashMap<>();
         nibbleSubTable.put(0, 14);
         nibbleSubTable.put(1, 4);
@@ -52,8 +57,9 @@ class Tables {
         nibbleSubTable.put(14, 0);
         nibbleSubTable.put(15, 7);
 
-        // Mixcolumns Hexadecimal Multiplication Table in Integers
-        multiplicationTable = new int[][]{  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        // Initializing the 2D array.
+        multiplicationTable = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
                 {0, 2, 4, 6, 8, 10, 12, 14, 3, 1, 7, 5, 11, 9, 15, 13},
                 {0, 3, 6, 5, 12, 15, 10, 9, 11, 8, 13, 14, 7, 4, 1, 2},
@@ -76,31 +82,26 @@ class Tables {
 
     /**
      * <h2>Getter Method for the Values in the NibbleSub Table</h2>
-     * @param value This is an integer that specifies the exact value.
-     * @return Returns the exact value.
+     * 
+     * <p>This method takes a value and using a nibble substitution table, returns
+     * the substituted value.</p>
+     * 
+     * @param value A value to be substituted.
+     * @return Returns the result of the substitution.
      */
     public static int getNibbleSubValue(int value) {
 
         return nibbleSubTable.get(value);
     }
-
-    /**
-     * <h2>Getter Method for the Values in the MixColumns Table</h2>
-     * @param row This is an integers that specifies the location of the row in the 2D Array
-     * @param column This is an integers that specifies the location of the column 2D Array
-     * @return Returns the value depending of the exact position of the row and the column
-     */
-    public static int getMixColumnValue(int row, int column) {
-
-        return multiplicationTable[row][column];
-    }
-
+    
     /**
      * <h2>Getter method for the values in the inverse NibbleSub table </h2>
-     * <p>This methods acquire its vlaues by using an enchanted for
-     *    loop to get the keys using the values in the HashMap</p>
-     * @param value
-     * @return
+     * 
+     * <p>This method takes a value and using a nibble substitution table, returns
+     * the inverted substituted value.</p>
+     * 
+     * @param value A value to be substituted
+     * @return Returns the result of the inverted substitution.
      */
     public static int getInverseNibbleSubValue(int value) {
         // Loop to iterate through the HashMap
@@ -114,4 +115,20 @@ class Tables {
 
         return 0;
     }
+
+    /**
+     * <h2>Getter Method for the Values in the MixColumns Table</h2>
+     * 
+     * <p>This method simulates a MixColumn multiplication using the MixColumn 
+     * multiplication table to generate results</p>
+     * 
+     * @param row The first argument of MixColumn multiplication.
+     * @param column The second argument of MixColumn multiplication.
+     * @return Returns the result of the MixColumn multiplication.
+     */
+    public static int getMixColumnValue(int row, int column) {
+
+        return multiplicationTable[row][column];
+    }
+
 }

@@ -1,31 +1,35 @@
-package miniaesdemo;
-
-import java.lang.Integer;
-
 /**
- *  <h1>Utilities class used for convection between different values and variables </h1>
+ *  <h1>This class contains handy helper functions.</h1>
  *
  *  @author Team Caligula
  *  @version 0.1
  *  @since   02.04.2019
  */
+
+package miniaesdemo;
+
+import java.lang.Integer;
+
 public class Utilities {
 
     //==================================================================================================
     // From String to Integer Array ====================================================================
     //==================================================================================================
+    
     /**
-     *  <h2>String to String Array</h2>
-     *  <p>A method that converts a string to a string array of four elements</p>
+     *  <h2>Conversion from String to String Array</h2>
+     *  <p>This method converts a String object to a String Array object of four elements</p>
      *
-     * @param stringToConvert A binary string of 4 nibbles.
+     * @param stringToConvert A binary string.
      *
-     * @return Returns an Array that is split on every space in four elements.
+     * @return Returns a String Array of four elements.
      */
     public static String[] stringToStringArray(String stringToConvert) {
         //Checking if the imputed String is correct
-        if (stringToConvert.length() != 19 || stringToConvert.charAt(4) != ' '
-                || stringToConvert.charAt(9) != ' ' || stringToConvert.charAt(14) != ' ') {
+        if (stringToConvert.length() != 19 || 
+            stringToConvert.charAt(4) != ' ' || 
+            stringToConvert.charAt(9) != ' ' ||
+            stringToConvert.charAt(14) != ' ') {
             System.out.println("String length mismatch.");
         }
         // Returns an Array that is split on every space
@@ -33,16 +37,14 @@ public class Utilities {
     }
     
     /**
-     *  <h2>String Array to Integer Array</h2>
-     *  <p> Methods that converts a string array to integer array
-     *     that has the same length. In the methods there is a
-     *     if statement to check the correct length and a loop that
-     *     goes through the string array and assigns every element
-     *     to a new array by also converting the elements to integers</p>
+     *  <h2>Conversion from String Array to Integer Array</h2>
+     * 
+     *  <p> This method converts a String Array to Integer Array
+     *     that has the same length.</p>
      *
-     * @param stringToConvert A string array of four elements.
+     * @param stringToConvert A String Array of four elements.
      *
-     * @return Returns an integer array of four elements.
+     * @return Returns an Integer Array of four elements.
      */
     public static int[] stringArrayToIntArray(String[] stringToConvert) {
         //Checking if it is the correct length
@@ -60,14 +62,13 @@ public class Utilities {
     }
     
     /**
-     *  <h2>String to Integer Array </h2>
-     *  <p>Method that uses the previous methods to simplify the process of
-     *     converting the binary string to an integer array</p>
+     *  <h2>Conversion from String to Integer Array</h2>
+     * 
+     *  <p> This method converts a String to Integer Array.</p>
      *
-     * @param stringToConvert A binary string of 4 nibbles.
+     * @param stringToConvert A binary String.
      *
-     * @return  Returns an array of integers using helper
-     *          methods that were created previously
+     * @return  Returns a Integer array of four elements.
      */
     public static int[] stringToIntArray(String stringToConvert) {
         return stringArrayToIntArray(stringToStringArray(stringToConvert));
@@ -76,17 +77,15 @@ public class Utilities {
     //==================================================================================================
     // From Integer Array to String ====================================================================
     //==================================================================================================
+    
     /**
-     * <h2>Integer Array to String Array</h2>
-     * <p>Methods that converts an integer array to string array
-     *    that has the same length. In the methods there is a
-     *    if statement to check the correct length and a loop that
-     *    goes through the integer array and assigns every element
-     *    to a new array by also converting the elements using the <b>formatBinary</b> method.</p>
+     * <h2>Conversion from Integer Array to String Array</h2>
+     * 
+     * <p> This method converts a Integer Array to String Array.</p>
      *
-     * @param intToConvert An integer array of four elements.
+     * @param intToConvert An Integer Array of four elements.
      *
-     * @return Returns a string array of four elements.
+     * @return Returns a String Array of four elements.
      */
     public static String[] intArrayToStringArray(int[] intToConvert) {
 
@@ -106,36 +105,25 @@ public class Utilities {
     }
     
     /**
-     * <h2>Formatting the binary string</h2>
-     * <p>The methods is used to correctly assign a binary string with the
-     *    addition of zeros depending of the deficiency in every nibble until
-     *    they reach a length of four </p>
+     * <h2>Formatting a binary string</h2>
+     * 
+     * <p> This method formats a 4-bit binary string to add padding such that the string is always of length four.</p>
      *
-     * @param binaryString A binary string of length smaller or equal to four
+     * @param binaryString A 4-bit binary String.
      *
-     * @return Returns a newly created string of length four.
+     * @return Returns a padded 4-bit binary String.
      */
     public static String formatBinaryString(String binaryString) {
-        int bitLength = binaryString.length();
-        //Checking to see if the length is correct
-        if (binaryString.length() < 4) {
-            //If the length is correct then it goes through
-            //the nibble and assigns zeros until its length reaches four
-            for (int i = 0; i < (4 - bitLength); i++) {
-                binaryString = "0" + binaryString;
-            }
-        }
-        return binaryString;
+        return (String.format("%4s", binaryString).replace(' ', '0'));
     }
     
     /**
-     *  <h2>String Array to String</h2>
-     *  <p>A method that converts a string array of four elements
-     *     to string using an enhanced for loop.</p>
+     *  <h2>Conversion from String Array to String</h2>
+     *  <p>This method converts a String Array to String.</p>
      *
-     * @param stringArrayToConvert A string array of four elements.
+     * @param stringArrayToConvert A String Array of four elements.
      *
-     * @return Returns a binary string of 4 nibbles.
+     * @return Returns a 16-bit binary string.
      */
     public static String stringArrayToString(String[] stringArrayToConvert) {
         //Checking if it is the correct length
@@ -155,18 +143,23 @@ public class Utilities {
     }
     
     /**
-     *  <h2>Integer Array to String</h2>
-     *  <p>Method that uses the previous methods to simplify the process of
-     *     converting the integer array to a string</p>
+     *  <h2>Conversion from Integer Array to String</h2>
+     *  
+     *  <p> This method converts an Integer Array to a 16-bit binary String.</p>
      *
-     * @param intArrayToConvert An integer array of four elements.
+     * @param intArrayToConvert An Integer Array of four elements.
      *
-     * @return Returns a binary string of 4 nibbles.
+     * @return Returns a 16-bit binary String.
      */
     public static String intArrayToString(int[] intArrayToConvert) {
         return stringArrayToString(intArrayToStringArray(intArrayToConvert));
     }
     
+    /**
+     *  <h2>Team Caligula Logo</h2>
+     *  
+     *  <p> This method displays Team Caligula's ascii logo. Crafted by Petar Baltov.</p>
+     */
     public static void printLogo() {
         System.out.println("" +
                     "   _______                         _____        _  _                _        \n" +
