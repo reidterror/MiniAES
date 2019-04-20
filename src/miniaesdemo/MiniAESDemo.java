@@ -2,7 +2,7 @@
  * <h1>Class used to test the Mini-AES</h1>
  *
  *  @author Team Caligula
- *  @version 0.1
+ *  @version 1.0
  *  @since   02.04.2019
  */
 
@@ -23,70 +23,77 @@ public class MiniAESDemo {
             Scanner scanner = new Scanner(System.in);
             int cliOption;
             
+            cliMenu();
+            
             do {
-                printLogo();
-                System.out.print("1. Encrypt a binary string.\n"
-                                + "2. Encrypt binary string with random key.\n"
-                                + "3. Decrypt a binary string\n"
-                                + "4. Encrypt plaintext.\n"
-                                + "5. Decrypt plaintext.\n\n"
-                                + "0. Exit\n\n"
-                                + "Enter your choice: "
-                );
-                
+                System.out.print("\nInput: ");
                 cliOption = scanner.nextInt();
                 
                 switch(cliOption) {
+                    case -1: {
+                        cliMenu();
+                        break;
+                    }
                     case 1: {
-                        System.out.println("Enter binary string plaintext:");
+                        System.out.print("\nEnter binary string plaintext: ");
                         scanner.nextLine();
                         String plainText = scanner.nextLine();
                         
-                        System.out.println("Enter a binary string key:");
+                        System.out.print("Enter a binary string key: ");
                         String encryptionKey = scanner.nextLine();
                         
                         if(plainText.length() == 19 && encryptionKey.length() == 19) {
-                            System.out.println("Cipher text: " + MiniAES.Encrypt(plainText, encryptionKey));
+                            System.out.println("\nCipher text: " + MiniAES.Encrypt(plainText, encryptionKey));
                         }
                         else
                         {
-                            System.out.println("Invalid plaintext or key.");
+                            System.out.println("\nInvalid plaintext or key.");
                         }
                         
                         break;
                     }
                     
                     case 2: {
-                        System.out.println("Enter binary string plaintext:");
+                        System.out.print("\nEnter binary string plaintext: ");
                         scanner.nextLine();
                         String plainText = scanner.nextLine();
                         
                         if(plainText.length() == 19) {
-                            Pair<String, String> result = MiniAES.Encrypt(plainText, true);
-                            System.out.println("Cipher text: " + result.getValue() + "\nRandom key: " + result.getKey());
+                            Pair<String, String> result = new Pair<>("", "");
+                            
+                            try {
+                                result = MiniAES.Encrypt(plainText, true);
+                            }
+                            catch(Exception e) {
+                                System.out.println(e);
+                                System.exit(1);
+                            }
+                            finally {
+                                System.out.println("\nCipher text: " + result.getValue() + "\nRandom key: " + result.getKey());
+                            }
                         }
                         else
                         {
-                            System.out.println("Invalid plaintext.");
+                            System.out.println("\nInvalid plaintext.");
                         }
                         
                         break;
                     }
                     
                     case 3: {
-                        System.out.println("Enter binary string cipher text:");
+                        System.out.print("\nEnter binary string cipher text: ");
                         scanner.nextLine();
                         String cipherText = scanner.nextLine();
                         
-                        System.out.println("Enter a binary string key:");
+                        System.out.print("Enter a binary string key: ");
                         String encryptionKey = scanner.nextLine();
                         
                         if(cipherText.length() == 19 && encryptionKey.length() == 19) {
-                            System.out.println("Decrypted cipher text: " + MiniAES.Decrypt(cipherText, encryptionKey));
+                            System.out.println("\nDecrypted cipher text: " + MiniAES.Decrypt(cipherText, encryptionKey));
                         }
                         else
                         {
-                            System.out.println("Invalid cipher text or key.");
+                            System.out.println("\nInvalid cipher text or key.");
                         }
                         
                         break;
@@ -107,16 +114,16 @@ public class MiniAESDemo {
             while(cliOption!=0);
         }
         
-        public static void normalTest() {
-            System.out.println("PlainText: " + "1010 0101 1100 0011");
-            System.out.println("Encrypted: " + MiniAES.Encrypt("1010 0101 1100 0011", "1111 0000 1111 0000"));
-            System.out.println("Decrypted: " + MiniAES.Decrypt(MiniAES.Encrypt("1010 0101 1100 0011", "1111 0000 1111 0000"), "1111 0000 1111 0000"));
-        }
-        
-        public static void randomKeyTest() {
-            Pair<String, String> result = MiniAES.Encrypt("1010 0101 1100 0011", true);
-            
-            System.out.println("Encrypted: " + result.getValue() + "\nRandom Key: " + result.getKey());
-            System.out.println("Decrypted: " + MiniAES.Decrypt(result.getValue(), result.getKey()));
+        public static void cliMenu() {
+                printLogo();
+                
+                System.out.println(" 1. Encrypt a binary string.\n"
+                                + " 2. Encrypt binary string with random key.\n"
+                                + " 3. Decrypt a binary string\n"
+                                + " 4. Encrypt plaintext.\n"
+                                + " 5. Decrypt plaintext.\n\n"
+                                + " 0. Exit\n"
+                                + "-1. Show menu.\n"
+                );
         }
     }

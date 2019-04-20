@@ -2,7 +2,7 @@
  * <h1>EncryptionDetails generates and stores encryption keys.</h1>
  *
  *  @author Team Caligula
- *  @version 0.1
+ *  @version 1.0
  *  @since   02.04.2019
  */
 

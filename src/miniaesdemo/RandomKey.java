@@ -2,7 +2,7 @@
  *  <h1>RandomKey class generates a random 16-bit key and stores it.</h1>
  *
  *  @author Team Caligula
- *  @version 0.1
+ *  @version 1.0
  *  @since   02.04.2019
  */
 

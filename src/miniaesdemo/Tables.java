@@ -2,7 +2,7 @@
  * <h1>Contains nibble substitution table and mix column multiplication table.</h1>
  *
  *  @author Team Caligula
- *  @version 0.1
+ *  @version 1.0
  *  @since   02.04.2019
  */
 

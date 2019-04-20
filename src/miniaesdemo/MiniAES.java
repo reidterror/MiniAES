@@ -1,38 +1,29 @@
 /**
-* The Mini-AES class implements a minified version of the AES encryption algorithm.
-*
-* @author  Team Caligula
-* @version 0.1
-* @since   29.03.2019
-*/
+ * <h1>The Mini-AES class implements a minified version of the AES encryption algorithm.</h1>
+ *
+ * @author  Team Caligula
+ * @version 1.0
+ * @since   02.04.2019
+ */
 
 package miniaesdemo;
 
 import javafx.util.Pair;
 
-/**
- * <h1>The Mini-AES class implements a minified version of the AES encryption algorithm.</h1>
- *
- * @author  Team Caligula
- * @version 0.1
- * @since   02.04.2019
- */
-
 class MiniAES {
 
     /**
-     * <h1>AddRound Key Section</h1>
-     * <h2>Method that adds the Round Key to the plain text</h2>
-     * <p>The methods uses a loop the Loop that goes through every part of the plainText Array,
-     *    using XOR the RoundKey is added to every part of the Array</p>
+     * <h2>AddRoundKey</h2>
+     * 
+     * <p>This method applies a given round key to the provided plaintext and then returns it.</p>
      *
-     * @param plainText An Integer Array of four elements that is converted using the <b>ConversionUtilities</b> class
+     * @param plainText An Integer Array of four elements that stores the plaintext.
      *
-     * @param key An Integer Array of four elements that stores the various keys.
+     * @param key An Integer Array of four elements that stores a single key.
      *
-     * @return Returns a new integer array.
+     * @return Returns a resulting ciphertext integer array with the key applied to it.
      */
-    private static int[] AddRoundKey(int[] plainText, int[] key) {
+    private static int[] addRoundKey(int[] plainText, int[] key) {
         int[] result = new int[4];
         //Loop that goes through every part of the plainText Array
         //Using XOR the RoundKey is added to every part of the Array
@@ -45,16 +36,16 @@ class MiniAES {
     }
     
     /**
-     * <h1>NibbleSub Section</h1>
-     * <h2>Method that substitutes every nibble</h2>
-     * <p>This methods uses a loop that goes through the NibbleSub
-     *    Table and substitutes every part of the plainText Array </p>
+     * <h2>NibbleSub</h2>
+     * 
+     * <p>This method substitutes all of the four elements of the provided plaintext integer array
+     * with corresponding values in the nibble substitution table.</p>
      *
-     * @param plainText An Integer Array of four elements.
+     * @param plainText An Integer Array of four elements that stores the plaintext.
      *
-     * @return Returns a new integer array of four elements.
+     * @return Returns a resulting ciphertext integer array with the values substituted.
      */
-    private static int[] NibbleSub(int[] plainText) {
+    private static int[] nibbleSub(int[] plainText) {
         int[] result = new int[4];
         //The Loop goes through the NibbleSub Table
         // and substitutes every part of the plainText Array
@@ -67,16 +58,16 @@ class MiniAES {
     }
     
     /**
-     * <h1>Inverse NibbleSub Section</h1>
-     * <h2>Method that substitutes every nibble in inverse order</h2>
-     * <p>This methods uses a loop that goes through the Inverse NibbleSub
-     *    Table and substitutes every part of the plainText Array </p>
+     * <h2>InverseNibbleSub</h2>
+     * 
+     * <p>This method substitutes all of the four elements of the provided plaintext integer array
+     * with inverted values in the nibble substitution table.</p>
      *
-     * @param plainText An Integer Array of four elements.
+     * @param plainText An Integer Array of four elements that stores the plaintext.
      *
-     * @return Returns a new integer array of four elements.
+     * @return Returns a resulting ciphertext integer array with the values substituted.
      */
-    private static int[] InverseNibbleSub(int[] plainText) {
+    private static int[] inverseNibbleSub(int[] plainText) {
         int[] result = new int[4];
         //Iterates through the Inverse NibbleSub table
         // to get the values that are replaced in the plain Text
@@ -90,17 +81,15 @@ class MiniAES {
     }
     
     /**
-     * <h1>ShiftRows Section</h1>
-     * <h2>Methods that shifts the last two elements in the array</h2>
-     * <p>The methods stores the last two elements form the pain
-     *    text array into two variables and slabs their passion,
-     *    reassigning them back to the array</p>
+     * <h2>ShiftRows</h2>
+     * 
+     * <p>This method swaps the last two elements of the plaintext.</p>
      *
-     * @param plainText An Integer Array of four elements.
+     * @param plainText An Integer Array of four elements that stores the plaintext.
      *
-     * @return Returns the same array but with sifted elements.
+     * @return Returns a resulting ciphertext integer array with the last two elements swapped.
      */
-    private static int[] ShiftRows(int[] plainText) {
+    private static int[] shiftRows(int[] plainText) {
         int value1 = plainText[2];
         int value2 = plainText[3];
 
@@ -112,17 +101,16 @@ class MiniAES {
     }
     
     /**
-     * <H1>MixColumns Section</H1>
-     * <h2>Method that changes the elements of the plainText</h2>
-     * <p>Using the Hexadecimal Multiplication table and the constant
-     *    matrix in the MixColumns Section every nibble of the plain
-     *    Text Array is assign with new value by also using XOR. </p>
+     * <h2>MixColumns</h2>
+     * 
+     * <p>This method multiplies each element by an element of a constant array, the result of
+     * this multiplication is retrieved from the mixcolumn multiplication table in the <b>Tables</b> class.</p>
      *
-     * @param plainText An Integer Array of four elements.
+     * @param plainText An Integer Array of four elements that stores the plaintext.
      *
-     * @return Returns a new integer array of four elements.
+     * @return Returns a resulting ciphertext integer array with constant array applied to it.
      */
-    private static int[] MixColumns(int[] plainText) {
+    private static int[] mixColumns(int[] plainText) {
         final int[] constMatrix = new int[]{3, 2, 2, 3};
 
         int[] result = {
@@ -148,28 +136,39 @@ class MiniAES {
     }
     
     /**
-     * <h1>The Encryption Process</h1>
-     * <h2>This method encapsulates the operations done
-     *     in the encryption process of the Mini-AES</h2>
-     * <p>This methods uses helper methods to produce an encrypted copy of a binary string.
-     *    The followitng is a list of the operations: </p>
+     * <h2>Encrypt</h2>
+     * 
+     * <p>This method encapsulates the operations done
+     * in the encryption process of the Mini-AES. The process is broken down into a few steps:</p>
+     * 
      * <ol>
-     *     <li>Adding round key Zero to the plain text</li>
-     *     <li>Substitution of every nibble or element occurs</li>
-     *     <li>The last two nibbles are shifted</li>
-     *     <li>Going through the mixing of the columns using
-     *     the Multiplication Table and the constant matrix</li>
-     *     <li>Adding round key One</li>
-     *     <li>Going through the nibble substitution again</li>
-     *     <li>The last two nibbles are shifted again</li>
-     *     <li>Adding the final Round Key Two</li>
+     *     <li><b>AddRoundKey</b>: Adding the initial key to the plain text.</li>
+     * 
+     *     <li><b>NibbleSub</b>: Substituting the values in the result of the
+     *     (<b>AddRoundKey</b>) step with values from the NibbleSub table found in the <b>Tables</b> class.</li>
+     *     
+     *     <li><b>ShiftRows</b>: Shifting the last two elements of the result of
+     *     the (<b>NibbleSub</b>) step.</li>
+     *     
+     *     <li><b>MixColumn</b>: Multiplying the result the (<b>ShiftRows</b>) step
+     *     by a constant array.</li>
+     *     
+     *     <li><b>AddRoundKey1</b>: Adding the first round key to the result of the (<b>MixColumn</b>) step.</li>
+     *     
+     *     <li><b>NibbleSub</b>: Substituting the values in the result of the
+     *     (<b>AddRoundKey1</b>) step with values from the NibbleSub table found in the <b>Tables</b> class.</li>
+     *     
+     *     <li><b>ShiftRows</b>: Shifting the last two elements of the result of
+     *     the (<b>NibbleSub</b>) step.</li>
+     *
+     *     <li><b>AddRoundKey2</b>: Adding the second round key to the result of the (<b>ShiftRows</b>) step.</li>
      * </ol>
      *
-     * @param plainText An Integer Array of four elements.
+     * @param plainText An Integer Array of four elements, representing the plaintext to be encrypted.
      *
-     * @param key Also an Integer Array of four elements.
+     * @param key An Integer Array of four elements, representing the key with which the plaintext will be encrypted.
      *
-     * @return Returns a new integer array of four elements.
+     * @return Returns a new integer array of four elements, representing the encrypted plaintext.
      */
     public static String Encrypt(String plainText, String key) {
         //Converting the plain Text and the key to Integer Arrays
@@ -179,33 +178,73 @@ class MiniAES {
         EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
         
         //Adding the Round Key Zero
-        plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey0());
+        plainTextArray = addRoundKey(plainTextArray, encryptionDetails.getKey0());
 
         //Goes through the nibble substitution
-        plainTextArray = NibbleSub(plainTextArray);
+        plainTextArray = nibbleSub(plainTextArray);
 
         //The last two nibbles are shifted
-        plainTextArray = ShiftRows(plainTextArray);
+        plainTextArray = shiftRows(plainTextArray);
 
         //Goes through the mixing of the columns using the Multiplication Table
-        plainTextArray = MixColumns(plainTextArray);
+        plainTextArray = mixColumns(plainTextArray);
 
         //Adding Round Key One
-        plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey1());
+        plainTextArray = addRoundKey(plainTextArray, encryptionDetails.getKey1());
 
         //Goes through the nibble substitution again
-        plainTextArray = NibbleSub(plainTextArray);
+        plainTextArray = nibbleSub(plainTextArray);
 
         //The last two nibbles are shifted again
-        plainTextArray = ShiftRows(plainTextArray);
+        plainTextArray = shiftRows(plainTextArray);
 
         //Adding the final Round Key Two
-        plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey2());
+        plainTextArray = addRoundKey(plainTextArray, encryptionDetails.getKey2());
 
         return Utilities.intArrayToString(plainTextArray);
     }
     
-    public static Pair Encrypt(String plainText, boolean generateRandomKey) {
+    /**
+     * <h2>Encrypt</h2>
+     * 
+     * <p>This method encapsulates the operations done
+     * in the encryption process of the Mini-AES. The process is broken down into a few steps:</p>
+     * 
+     * <ol>
+     *     <li><b>AddRoundKey</b>: Adding the initial key to the plain text.</li>
+     * 
+     *     <li><b>NibbleSub</b>: Substituting the values in the result of the
+     *     (<b>AddRoundKey</b>) step with values from the NibbleSub table found in the <b>Tables</b> class.</li>
+     *     
+     *     <li><b>ShiftRows</b>: Shifting the last two elements of the result of
+     *     the (<b>NibbleSub</b>) step.</li>
+     *     
+     *     <li><b>MixColumn</b>: Multiplying the result the (<b>ShiftRows</b>) step
+     *     by a constant array.</li>
+     *     
+     *     <li><b>AddRoundKey1</b>: Adding the first round key to the result of the (<b>MixColumn</b>) step.</li>
+     *     
+     *     <li><b>NibbleSub</b>: Substituting the values in the result of the
+     *     (<b>AddRoundKey1</b>) step with values from the NibbleSub table found in the <b>Tables</b> class.</li>
+     *     
+     *     <li><b>ShiftRows</b>: Shifting the last two elements of the result of
+     *     the (<b>NibbleSub</b>) step.</li>
+     *
+     *     <li><b>AddRoundKey2</b>: Adding the second round key to the result of the (<b>ShiftRows</b>) step.</li>
+     * </ol>
+     *
+     * @param plainText An Integer Array of four elements, representing the plaintext to be encrypted.
+     *
+     * @param generateRandomKey A boolean value that triggers the generation of a random key.
+     *
+     * @return Returns a new integer array of four elements, representing the encrypted plaintext.
+     */
+    public static Pair Encrypt(String plainText, boolean generateRandomKey) throws Exception {
+        
+        if(!generateRandomKey) {
+            throw new Exception("GenerateRandomKey variable set to false. Please provide a 16-bit binary key in it's place and re-start.");
+        }
+        
         RandomKey randomKey = new RandomKey();
         String key = randomKey.getRandomKeyString();
         //Converting the plain Text and the key to Integer Arrays
@@ -215,28 +254,28 @@ class MiniAES {
         EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
         
         //Adding the Round Key Zero
-        plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey0());
+        plainTextArray = addRoundKey(plainTextArray, encryptionDetails.getKey0());
 
         //Goes through the nibble substitution
-        plainTextArray = NibbleSub(plainTextArray);
+        plainTextArray = nibbleSub(plainTextArray);
 
         //The last two nibbles are shifted
-        plainTextArray = ShiftRows(plainTextArray);
+        plainTextArray = shiftRows(plainTextArray);
 
         //Goes through the mixing of the columns using the Multiplication Table
-        plainTextArray = MixColumns(plainTextArray);
+        plainTextArray = mixColumns(plainTextArray);
 
         //Adding Round Key One
-        plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey1());
+        plainTextArray = addRoundKey(plainTextArray, encryptionDetails.getKey1());
 
         //Goes through the nibble substitution again
-        plainTextArray = NibbleSub(plainTextArray);
+        plainTextArray = nibbleSub(plainTextArray);
 
         //The last two nibbles are shifted again
-        plainTextArray = ShiftRows(plainTextArray);
+        plainTextArray = shiftRows(plainTextArray);
 
         //Adding the final Round Key Two
-        plainTextArray = AddRoundKey(plainTextArray, encryptionDetails.getKey2());
+        plainTextArray = addRoundKey(plainTextArray, encryptionDetails.getKey2());
         
         Pair<String, String> result = new Pair<>(key, Utilities.intArrayToString(plainTextArray));
         
@@ -244,30 +283,39 @@ class MiniAES {
     }
     
     /**
-     * <h1>The Decryption Process</h1>
-     * <h2>This method encapsulates the operations done
-     *     in the decryption process of the Mini-AES</h2>
-     * <p>This methods uses helper methods to produce an decrypted copy
-     *    of an encrypted binary string. The following is a list of
-     *    the operations: </p>
+     * <h2>Decrypt</h2>
+     * 
+     * <p>This method encapsulates the operations done
+     * in the decryption process of the Mini-AES. The process is broken down into a few steps:</p>
+     * 
      * <ol>
-     *     <li>Adding round key Two to the plain text</li>
-     *     <li>Substitution of every nibble or element occurs in inverse order</li>
-     *     <li>The last two nibbles are shifted</li>
-     *     <li>Going through the mixing of the columns using
-     *     the Multiplication Table and the constant matrix</li>
-     *     <li>Adding round key One</li>
-     *     <li>Going through the inverse nibble substitution again</li>
-     *     <li>The last two nibbles are shifted again</li>
-     *     <li>Adding the Round Key Zero</li>
+     *     <li><b>AddRoundKey2</b>: Adding the second round key to the result of the (<b>ShiftRows</b>) step.</li>
+     * 
+     *     <li><b>InverseNibbleSub</b>: Substituting the values in the result of the
+     *     (<b>AddRoundKey2</b>) step with values from the inverted NibbleSub table found in the <b>Tables</b> class.</li>
+     *     
+     *     <li><b>ShiftRows</b>: Shifting the last two elements of the result of
+     *     the (<b>InverseNibbleSub</b>) step.</li>
+     * 
+     *     <li><b>AddRoundKey1</b>: Adding the first round key to the result of the (<b>ShiftRows</b>) step.</li>
+     *     
+     *     <li><b>MixColumn</b>: Multiplying the result the (<b>AddRoundKey1</b>) step
+     *     by a constant array.</li>
+     *     
+     *     <li><b>InverseNibbleSub</b>: Substituting the values in the result of the
+     *     (<b>AddRoundKey1</b>) step with values from the inverted NibbleSub table found in the <b>Tables</b> class.</li>
+     *     
+     *     <li><b>ShiftRows</b>: Shifting the last two elements of the result of
+     *     the (<b>InverseNibbleSub</b>) step.</li>
+     *
+     *     <li><b>AddRoundKey</b>: Adding the initial key to the result of the <b>ShiftRows</b> step.</li>
      * </ol>
      *
-     * @param cipherText An Integer Array of four elements.
+     * @param cipher An Integer Array of four elements, representing the cipher text to be decrypted.
      *
-     * @param key Also an Integer Array of four elements.
+     * @param key An Integer Array of four elements, representing the key with which the cipher text will be decrypted.
      *
-     * @return Returns a new integer array of four elements.
-     *
+     * @return Returns a new integer array of four elements, representing the decrypted cipher text.
      */
     public static String Decrypt(String cipherText, String key) {
         //Converting the cipher Text and the key to Integer Arrays
@@ -277,28 +325,28 @@ class MiniAES {
         EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
 
         //Adding the final Round Key - Key Two
-        cipherTextArray = AddRoundKey(cipherTextArray, encryptionDetails.getKey2());
+        cipherTextArray = addRoundKey(cipherTextArray, encryptionDetails.getKey2());
 
         //Goes through the nibble substitution but using the inverse table
-        cipherTextArray = InverseNibbleSub(cipherTextArray);
+        cipherTextArray = inverseNibbleSub(cipherTextArray);
 
         //The last two nibbles are shifted
-        cipherTextArray = ShiftRows(cipherTextArray);
+        cipherTextArray = shiftRows(cipherTextArray);
 
         //Adding the Round Key One
-        cipherTextArray = AddRoundKey(cipherTextArray, encryptionDetails.getKey1());
+        cipherTextArray = addRoundKey(cipherTextArray, encryptionDetails.getKey1());
 
         //Goes through the mixing of the columns using the Multiplication Table
-        cipherTextArray = MixColumns(cipherTextArray);
+        cipherTextArray = mixColumns(cipherTextArray);
 
         //Goes through the nibble substitution but using the inverse table
-        cipherTextArray = InverseNibbleSub(cipherTextArray);
+        cipherTextArray = inverseNibbleSub(cipherTextArray);
 
         //The last two nibbles are shifted
-        cipherTextArray = ShiftRows(cipherTextArray);
+        cipherTextArray = shiftRows(cipherTextArray);
 
         //Adding the Round Key Zero
-        cipherTextArray = AddRoundKey(cipherTextArray, encryptionDetails.getKey0());
+        cipherTextArray = addRoundKey(cipherTextArray, encryptionDetails.getKey0());
 
         return Utilities.intArrayToString(cipherTextArray);
     }
