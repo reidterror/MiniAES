@@ -80,6 +80,30 @@ class MiniAES {
         return result;
     }
     
+    private static int[] subBytes(int[] plainText) {
+        int[] result = new int[4];
+        //The Loop goes through the NibbleSub Table
+        // and substitutes every part of the plainText Array
+        for(int iter = 0; iter < 4; iter++) {
+            result[iter] = Tables.getSBoxValue(plainText[iter]);
+        }
+        // End of Loop
+
+        return result;
+    }
+    
+    private static int[] inverseSubBytes(int[] plainText) {
+        int[] result = new int[4];
+        //The Loop goes through the NibbleSub Table
+        // and substitutes every part of the plainText Array
+        for(int iter = 0; iter < 4; iter++) {
+            result[iter] = Tables.getInverseSBoxValue(plainText[iter]);
+        }
+        // End of Loop
+
+        return result;
+    }
+    
     /**
      * <h2>ShiftRows</h2>
      * 
@@ -130,6 +154,28 @@ class MiniAES {
 
                 (Tables.getMixColumnValue(constMatrix[1], plainText[1]) ^
                                          (Tables.getMixColumnValue(constMatrix[3], plainText[3])))
+        };
+
+        return result;
+    }
+    
+    private static int[] mixColumnsAES(int[] plainText) {
+        int[] result = {
+                (Tables.getMUL2Value(plainText[0]) ^ Tables.getMUL3Value(plainText[1]) ^ plainText[2] ^ plainText[3]),
+                (plainText[0] ^ Tables.getMUL2Value(plainText[1]) ^ Tables.getMUL3Value(plainText[2]) ^ plainText[3]),
+                (plainText[0] ^ plainText[1] ^ Tables.getMUL2Value(plainText[2]) ^ Tables.getMUL3Value(plainText[3])),
+                (Tables.getMUL3Value(plainText[0]) ^ plainText[1] ^ plainText[2] ^ Tables.getMUL2Value(plainText[3]))
+        };
+
+        return result;
+    }
+    
+    private static int[] inverseMixColumnsAES(int[] cipherText) {
+        int[] result = {
+                (Tables.getMUL14Value(cipherText[0]) ^ Tables.getMUL11Value(cipherText[1]) ^ Tables.getMUL13Value(cipherText[2]) ^ Tables.getMUL9Value(cipherText[3])),
+                (Tables.getMUL9Value(cipherText[0]) ^ Tables.getMUL14Value(cipherText[1]) ^ Tables.getMUL11Value(cipherText[2]) ^ Tables.getMUL13Value(cipherText[3])),
+                (Tables.getMUL13Value(cipherText[0]) ^ Tables.getMUL9Value(cipherText[1]) ^ Tables.getMUL14Value(cipherText[2]) ^ Tables.getMUL11Value(cipherText[3])),
+                (Tables.getMUL11Value(cipherText[0]) ^ Tables.getMUL13Value(cipherText[1]) ^ Tables.getMUL9Value(cipherText[2]) ^ Tables.getMUL14Value(cipherText[3]))
         };
 
         return result;
@@ -350,4 +396,86 @@ class MiniAES {
 
         return Utilities.intArrayToString(cipherTextArray);
     }
+
+    
+    public static String EncryptText(String plainText, String key) {
+        //Converting the plain Text and the key to Integer Arrays
+        int[][] plainTextMatrix = Utilities.segmentInputData(plainText);
+        int[] keyArray = Utilities.stringToIntArray(key);
+        
+        String encryptedText = "";
+        final int plainTextMatrixLength = plainTextMatrix.length;
+
+        EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
+        
+        
+        for(int iter = 0; iter < plainTextMatrixLength; iter++) {
+            //Adding the Round Key Zero
+            plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey0());
+
+            //Goes through the nibble substitution
+            plainTextMatrix[iter] = subBytes(plainTextMatrix[iter]);
+
+            //The last two nibbles are shifted
+            plainTextMatrix[iter] = shiftRows(plainTextMatrix[iter]);
+
+            //Goes through the mixing of the columns using the Multiplication Table
+            plainTextMatrix[iter] = mixColumnsAES(plainTextMatrix[iter]);
+
+            //Adding Round Key One
+            plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey1());
+
+            //Goes through the nibble substitution again
+            plainTextMatrix[iter] = subBytes(plainTextMatrix[iter]);
+
+            //The last two nibbles are shifted again
+            plainTextMatrix[iter] = shiftRows(plainTextMatrix[iter]);
+
+            //Adding the final Round Key Two
+            plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey2());
+        }
+        
+        for(int iter = 0; iter < plainTextMatrixLength; iter++) {
+            encryptedText += Utilities.intArrayToHexString(plainTextMatrix[iter]);
+        }
+
+        return encryptedText;
+    }
+    
+        
+    public static String DecryptText(String plainText, String key) {
+        int[][] plainTextMatrix = Utilities.segmentInputData(plainText);
+        int[] keyArray = Utilities.stringToIntArray(key);
+        
+        String encryptedText = "";
+        final int plainTextMatrixLength = plainTextMatrix.length;
+
+        EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
+        
+        
+        for(int iter = 0; iter < plainTextMatrixLength; iter++) {
+            plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey2());
+
+            plainTextMatrix[iter] = inverseSubBytes(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = shiftRows(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey1());
+            
+            plainTextMatrix[iter] = inverseMixColumnsAES(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = inverseSubBytes(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = shiftRows(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey0());
+        }
+        
+        for(int iter = 0; iter < plainTextMatrixLength; iter++) {
+            encryptedText += Utilities.intArrayToHexString(plainTextMatrix[iter]);
+        }
+
+        return encryptedText;
+    }
+
 }

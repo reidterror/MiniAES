@@ -8,8 +8,6 @@
 
 package miniaesdemo;
 
-import java.lang.Integer;
-
 public class Utilities {
 
     //==================================================================================================
@@ -153,6 +151,61 @@ public class Utilities {
      */
     public static String intArrayToString(int[] intArrayToConvert) {
         return stringArrayToString(intArrayToStringArray(intArrayToConvert));
+    }
+    
+    /**
+     *  <h2>Conversion from Integer Array to Hex String</h2>
+     *  
+     *  <p> This method converts a Integer Array to a Hexadecimal String.</p>
+     *
+     * @param intArray A Integer Array.
+     *
+     * @return Returns a Hexadecimal String.
+     */
+    public static String intArrayToHexString(int[] intArray) {
+        String output = "";
+
+        for(int iter = 0; iter < intArray.length; iter++) {
+            output += String.format("%02x", intArray[iter]);
+        }
+
+        return output;
+    }
+    
+//    public static int[] hexStringToIntArray(String hexString) {
+//        int[] output = new int[4];
+//
+//        for(int iter = 0; iter < intArray.length; iter++) {
+//            output += String.format("%02x", intArray[iter]);
+//        }
+//
+//        return output;
+//    }
+    
+    public static int[][] segmentInputData(String inputData) {
+        final int inputDataLenght   = inputData.length();
+        final int numOfSegments     = (int)Math.ceil(inputDataLenght/4.0);
+        final byte paddingSize      = (byte)(4-(inputDataLenght%4));
+        
+        int byteDataIndicator       = 0;
+        byte[] byteData             = inputData.getBytes();
+        int[][] segmentedData       = new int[numOfSegments][4];
+        
+        for(int row = 0; row < numOfSegments; row++) {
+            for(int col = 0; col < 4; col++) {
+                if(byteDataIndicator < inputDataLenght) {
+                    segmentedData[row][col] = byteData[byteDataIndicator];
+                }
+                else
+                {
+                    segmentedData[row][col] = paddingSize;
+                }
+                
+                byteDataIndicator++;
+            }
+        }       
+        
+        return segmentedData;
     }
     
     /**

@@ -101,12 +101,26 @@ public class MiniAESDemo {
                     
 
                     case 4: {
+                        System.out.print("\nEnter plaintext: ");
+                        scanner.nextLine();
+                        String plainText = scanner.nextLine();
+                        
+                        System.out.print("Enter a binary string key: ");
+                        String encryptionKey = scanner.nextLine();
+                        
+                        if(encryptionKey.length() == 19) {
+                            System.out.println("\nCipher text: " + MiniAES.EncryptText(plainText, encryptionKey));
+                        }
+                        else
+                        {
+                            System.out.println("\nInvalid key.");
+                        }
                         
                         break;
                     }
                     
                     case 5: {
-                        
+                        System.out.println("Work in progress.");
                         break;
                     }
                 }
