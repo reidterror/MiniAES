@@ -172,20 +172,22 @@ public class Utilities {
         return output;
     }
     
-//    public static int[] hexStringToIntArray(String hexString) {
-//        int[] output = new int[4];
-//
-//        for(int iter = 0; iter < intArray.length; iter++) {
-//            output += String.format("%02x", intArray[iter]);
-//        }
-//
-//        return output;
-//    }
+    public static int[] hexStringToIntArray(String hexString) {
+        String[] hexStringArray = hexString.split("(?<=\\G..)");
+        int HEX_STRING_LENGTH = hexStringArray.length;
+        int[] output = new int[HEX_STRING_LENGTH];
+
+        for(int iter = 0; iter < HEX_STRING_LENGTH; iter++) {
+            output[iter] = Integer.parseInt(hexStringArray[iter], 16);
+        }
+
+        return output;
+    }
     
-    public static int[][] segmentInputData(String inputData) {
-        final int inputDataLenght   = inputData.length();
-        final int numOfSegments     = (int)Math.ceil(inputDataLenght/4.0);
-        final byte paddingSize      = (byte)(4-(inputDataLenght%4));
+    public static int[][] segmentAndPadInputData(String inputData) {
+        final int inputDataLength   = inputData.length();
+        final int numOfSegments     = (int)Math.ceil(inputDataLength/4.0);
+        final byte paddingSize      = (byte)(4-(inputDataLength%4));
         
         int byteDataIndicator       = 0;
         byte[] byteData             = inputData.getBytes();
@@ -193,7 +195,7 @@ public class Utilities {
         
         for(int row = 0; row < numOfSegments; row++) {
             for(int col = 0; col < 4; col++) {
-                if(byteDataIndicator < inputDataLenght) {
+                if(byteDataIndicator < inputDataLength) {
                     segmentedData[row][col] = byteData[byteDataIndicator];
                 }
                 else
@@ -206,6 +208,41 @@ public class Utilities {
         }       
         
         return segmentedData;
+    }
+    
+    public static int[][] segmentInputData(int[] inputData) {
+        final int inputDataLength   = inputData.length;
+        final int numOfSegments     = inputDataLength/4;
+        
+        int DataIndicator           = 0;
+        int[][] segmentedData       = new int[numOfSegments][4];
+        
+        for(int row = 0; row < numOfSegments; row++) {
+            for(int col = 0; col < 4; col++) {
+                segmentedData[row][col] = inputData[DataIndicator];
+                DataIndicator++;
+            }
+        }
+        
+        return segmentedData;
+    }
+    
+    public static int[] removePadding(int[] paddedInput) {
+        int checkPadding = paddedInput[paddedInput.length-1];
+        
+        if(checkPadding == 1 || checkPadding == 2 || checkPadding == 3) {
+            int[] cleanInput = new int[4-checkPadding];
+            
+            for(int iter = 0; iter < cleanInput.length; iter++) {
+                cleanInput[iter] = paddedInput[iter];
+            }
+            
+            return cleanInput;
+        }
+        else
+        {
+            return paddedInput;
+        }
     }
     
     /**

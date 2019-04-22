@@ -120,7 +120,42 @@ public class MiniAESDemo {
                     }
                     
                     case 5: {
-                        System.out.println("Work in progress.");
+                        System.out.print("\nEnter binary string plaintext: ");
+                        scanner.nextLine();
+                        String plainText = scanner.nextLine();
+
+                        Pair<String, String> result = new Pair<>("", "");
+
+                        try {
+                            result = MiniAES.EncryptText(plainText, true);
+                        }
+                        catch(Exception e) {
+                            System.out.println(e);
+                            System.exit(1);
+                        }
+                        finally {
+                            System.out.println("\nCipher text: " + result.getValue() + "\nRandom key: " + result.getKey());
+                        }
+                        
+                        break;
+                    }
+                    
+                    case 6: {
+                        System.out.print("\nEnter cipher text: ");
+                        scanner.nextLine();
+                        String cipherText = scanner.nextLine();
+                        
+                        System.out.print("Enter a binary string key: ");
+                        String encryptionKey = scanner.nextLine();
+                        
+                        if(encryptionKey.length() == 19) {
+                            System.out.println("\nDecrypted cipher text: " + MiniAES.DecryptText(cipherText, encryptionKey));
+                        }
+                        else
+                        {
+                            System.out.println("\nInvalid key.");
+                        }
+                        
                         break;
                     }
                 }
@@ -135,7 +170,8 @@ public class MiniAESDemo {
                                 + " 2. Encrypt binary string with random key.\n"
                                 + " 3. Decrypt a binary string\n"
                                 + " 4. Encrypt plaintext.\n"
-                                + " 5. Decrypt plaintext.\n\n"
+                                + " 5. Encrypt plaintext with random key.\n"
+                                + " 6. Decrypt plaintext.\n\n"
                                 + " 0. Exit\n"
                                 + "-1. Show menu.\n"
                 );

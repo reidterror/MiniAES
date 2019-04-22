@@ -286,7 +286,6 @@ class MiniAES {
      * @return Returns a new integer array of four elements, representing the encrypted plaintext.
      */
     public static Pair Encrypt(String plainText, boolean generateRandomKey) throws Exception {
-        
         if(!generateRandomKey) {
             throw new Exception("GenerateRandomKey variable set to false. Please provide a 16-bit binary key in it's place and re-start.");
         }
@@ -400,7 +399,7 @@ class MiniAES {
     
     public static String EncryptText(String plainText, String key) {
         //Converting the plain Text and the key to Integer Arrays
-        int[][] plainTextMatrix = Utilities.segmentInputData(plainText);
+        int[][] plainTextMatrix = Utilities.segmentAndPadInputData(plainText);
         int[] keyArray = Utilities.stringToIntArray(key);
         
         String encryptedText = "";
@@ -410,28 +409,20 @@ class MiniAES {
         
         
         for(int iter = 0; iter < plainTextMatrixLength; iter++) {
-            //Adding the Round Key Zero
             plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey0());
-
-            //Goes through the nibble substitution
+            
             plainTextMatrix[iter] = subBytes(plainTextMatrix[iter]);
 
-            //The last two nibbles are shifted
             plainTextMatrix[iter] = shiftRows(plainTextMatrix[iter]);
 
-            //Goes through the mixing of the columns using the Multiplication Table
             plainTextMatrix[iter] = mixColumnsAES(plainTextMatrix[iter]);
 
-            //Adding Round Key One
             plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey1());
 
-            //Goes through the nibble substitution again
             plainTextMatrix[iter] = subBytes(plainTextMatrix[iter]);
 
-            //The last two nibbles are shifted again
             plainTextMatrix[iter] = shiftRows(plainTextMatrix[iter]);
 
-            //Adding the final Round Key Two
             plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey2());
         }
         
@@ -442,12 +433,56 @@ class MiniAES {
         return encryptedText;
     }
     
+    public static Pair EncryptText(String plainText, boolean generateRandomKey) throws Exception {
+        if(!generateRandomKey) {
+            throw new Exception("GenerateRandomKey variable set to false. Please provide a 16-bit binary key in it's place and re-start.");
+        }
         
-    public static String DecryptText(String plainText, String key) {
-        int[][] plainTextMatrix = Utilities.segmentInputData(plainText);
+        RandomKey randomKey = new RandomKey();
+        String key = randomKey.getRandomKeyString();        
+        //Converting the plain Text and the key to Integer Arrays
+        int[][] plainTextMatrix = Utilities.segmentAndPadInputData(plainText);
         int[] keyArray = Utilities.stringToIntArray(key);
         
         String encryptedText = "";
+        final int plainTextMatrixLength = plainTextMatrix.length;
+
+        EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
+        
+        
+        for(int iter = 0; iter < plainTextMatrixLength; iter++) {
+            plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey0());
+            
+            plainTextMatrix[iter] = subBytes(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = shiftRows(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = mixColumnsAES(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey1());
+
+            plainTextMatrix[iter] = subBytes(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = shiftRows(plainTextMatrix[iter]);
+
+            plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey2());
+        }
+        
+        for(int iter = 0; iter < plainTextMatrixLength; iter++) {
+            encryptedText += Utilities.intArrayToHexString(plainTextMatrix[iter]);
+        }
+
+        Pair<String, String> result = new Pair<>(key, encryptedText);
+        
+        return result;
+    }
+    
+        
+    public static String DecryptText(String plainText, String key) {
+        int[][] plainTextMatrix = Utilities.segmentInputData(Utilities.hexStringToIntArray(plainText));
+        int[] keyArray = Utilities.stringToIntArray(key);
+        
+        String decryptedText = "";
         final int plainTextMatrixLength = plainTextMatrix.length;
 
         EncryptionDetails encryptionDetails = new EncryptionDetails(keyArray);
@@ -471,11 +506,15 @@ class MiniAES {
             plainTextMatrix[iter] = addRoundKey(plainTextMatrix[iter], encryptionDetails.getKey0());
         }
         
+        plainTextMatrix[plainTextMatrixLength-1] = Utilities.removePadding(plainTextMatrix[plainTextMatrixLength-1]);
+        
         for(int iter = 0; iter < plainTextMatrixLength; iter++) {
-            encryptedText += Utilities.intArrayToHexString(plainTextMatrix[iter]);
+            for(int iter2 = 0; iter2 < plainTextMatrix[iter].length; iter2++) {
+                decryptedText += (char)(plainTextMatrix[iter][iter2]);
+            }
         }
 
-        return encryptedText;
+        return decryptedText;
     }
 
 }
