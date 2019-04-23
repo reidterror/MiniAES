@@ -1,21 +1,22 @@
 package miniaesdemo;
 
 /**
- * <h1>RandomKey class generates a random 16-bit key and stores it.</h1>
+ * <p>This class generates a random 16-bit key and stores it inside of a local variable. It provides a
+ * straightforward way to access the randomKey variable (<b><u>{@link #getRandomKey()}</u></b> and <b><u>{@link #getRandomKeyString()}</u></b>).</p>
  *
  * @author Team Caligula
  * @version 1.0
  * @since 0.5
  */
 public class RandomKey {
-
+    
+    /**
+     * <p>This variable contains the random 16-bit binary key divided into four elements and stored in an integer array of four elements.</p>
+     */
     private int[] randomKey;
 
     /**
-     * <h2>Random Key Constructor Method</h2>
-     *
-     * <p>
-     * This method sets the initial value of the local variables.</p>
+     * <p>Constructor method that initializes the local <b><u>{@link #randomKey}</u></b> variable with a randomly generated key.</p>
      */
     public RandomKey() {
         randomKey = new int[4];
@@ -23,10 +24,7 @@ public class RandomKey {
     }
 
     /**
-     * <h2>Generate Random Encryption Key Method</h2>
-     *
-     * <p>
-     * This method generates a random 16-bit binary key.</p>
+     * <p>This method generates a random 16-bit binary key using <b>Math.random()</b>.</p>
      */
     private void generateRandomKey() {
         for (int i = 0; i < 4; i++) {
@@ -35,23 +33,16 @@ public class RandomKey {
     }
 
     /**
-     * <h2>Getter method for the local variable <b>randomKey</b></h2>
+     * <p>Getter method for the randomly generated key. It gives users the ability to get the private <b><u>{@link #randomKey}</u></b> variable.</p>
      *
-     * <p>
-     * This method returns the private local variable <b>randomKey</b>.</p>
-     *
-     * @return Returns a String Array.
+     * @return Returns the randomly generated key stored in an integer array of four elements.
      */
     public int[] getRandomKey() {
         return randomKey;
     }
 
     /**
-     * <h2>Getter method for the local variable <b>randomKey</b></h2>
-     *
-     * <p>
-     * This method returns the private local variable <b>randomKey</b> converted
-     * to a String.</p>
+     * <p>Getter method for the randomly generated key converted to a string using the <b><u>{@link Utilities#intArrayToString(int[])}</u></b> method. It gives users the ability to get the private <b><u>{@link #randomKey}</u></b> variable.</p>
      *
      * @return Returns a 16-bit binary String
      */

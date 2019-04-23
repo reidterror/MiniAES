@@ -111,7 +111,7 @@ public class EncryptionDetails {
 
     // Getter Methods for Key0,Key1,Key2
     /**
-     * <p>Getter method for the <b>initial</b> key. It allows users the ability to get the private <b><u>{@link #key0}</u></b> variable.</p>
+     * <p>Getter method for the <b>initial</b> key. It gives users the ability to get the private <b><u>{@link #key0}</u></b> variable.</p>
      *
      * @return Returns the initial key.
      */
@@ -120,7 +120,7 @@ public class EncryptionDetails {
     }
 
     /**
-     * <p>Getter method for the <b>first</b> key. It allows users the ability to get the private <b><u>{@link #key1 }</u></b> variable.</p>
+     * <p>Getter method for the <b>first</b> key. It gives users the ability to get the private <b><u>{@link #key1 }</u></b> variable.</p>
      *
      * @return Returns the first round key.
      */
@@ -129,7 +129,7 @@ public class EncryptionDetails {
     }
 
     /**
-     * <p>Getter method for the <b>second</b> key. It allows users the ability to get the private <b><u>{@link #key2}</u></b> variable.</p>
+     * <p>Getter method for the <b>second</b> key. It gives users the ability to get the private <b><u>{@link #key2}</u></b> variable.</p>
      *
      * @return Returns the second round key.
      */
@@ -139,7 +139,7 @@ public class EncryptionDetails {
 
     // toString Methods using the intArraytoString Method in class Utilities.
     /**
-     * <p>This method uses the <b><u>{@link Utilities#intArraytoString(int[])}</u></b> method to convert the array into a string</p>
+     * <p>This method uses the <b><u>{@link Utilities#intArrayToString(int[])}</u></b> method to convert the array into a string</p>
      *
      * @param arrayToConvert An Integer Array to be converted to string.
      *

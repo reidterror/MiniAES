@@ -16,7 +16,7 @@ public class MiniAES {
     /**
      * <p>The constructor is empty, this class doesn't contain any variables outside of its methods.</p>
      */
-    MiniAES() {
+    public MiniAES() {
         
     }
     
