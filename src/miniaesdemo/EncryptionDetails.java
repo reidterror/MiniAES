@@ -48,9 +48,10 @@ class EncryptionDetails {
     /**
      * <h2>Generate all of the three round keys.</h2>
      *
-     * <p>
-     * This method takes in an initial key and generates the rest of the
+     * <p>This method takes in an initial key and generates the rest of the
      * keys.</p>
+     * 
+     * @param key A variable that contains the initial key value.
      */
     public void generateKeys(int[] key) {
         key0 = key;

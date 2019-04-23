@@ -164,7 +164,7 @@ public class Utilities {
      * <p>
      * This method converts a Integer Array to a Hexadecimal String.</p>
      *
-     * @param intArray A Integer Array.
+     * @param intArray An Integer Array.
      *
      * @return Returns a Hexadecimal String.
      */
@@ -177,7 +177,16 @@ public class Utilities {
 
         return output;
     }
-
+    
+    /**
+     * <h2>Conversion from Hex String to Integer Array </h2>
+     *
+     * <p>This method converts a Integer Array to a Hexadecimal String.</p>
+     *
+     * @param hexString A Hexadecimal String .
+     *
+     * @return Returns An Integer Array.
+     */
     public static int[] hexStringToIntArray(String hexString) {
         String[] hexStringArray = hexString.split("(?<=\\G..)");
         int HEX_STRING_LENGTH = hexStringArray.length;
@@ -189,8 +198,9 @@ public class Utilities {
 
         return output;
     }
-
-    public static int[][] segmentAndPadInputData(String inputData) {
+    
+    
+    public static int[][] segmentAndPadData(String inputData) {
         final int inputDataLength = inputData.length();
         final int numOfSegments = (int) Math.ceil(inputDataLength / 4.0);
         final int paddingSize = (4 - (inputDataLength % 4));
@@ -202,7 +212,6 @@ public class Utilities {
             byteData[i] = (int) inputData.charAt(i);
         }
 
-        //byte[] byteData             = inputData.getBytes();
         int[][] segmentedData = new int[numOfSegments][4];
 
         for (int row = 0; row < numOfSegments; row++) {
@@ -220,7 +229,7 @@ public class Utilities {
         return segmentedData;
     }
 
-    public static int[][] segmentInputData(int[] inputData) {
+    public static int[][] segmentData(int[] inputData) {
         final int inputDataLength = inputData.length;
         final int numOfSegments = inputDataLength / 4;
 

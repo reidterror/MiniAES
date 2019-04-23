@@ -16,8 +16,8 @@ class Tables {
     /**
      * <h1>The following tables are for:</h1>
      * <ol>
-     * <il>Nibble Substitution Table</il>
-     * <il>MixColumns Multiplication Table</il>
+     * <li>Nibble Substitution Table<li>
+     * <li>MixColumns Multiplication Table<li>
      * </ol>
      */
 
