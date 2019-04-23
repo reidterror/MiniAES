@@ -1,12 +1,12 @@
+package miniaesdemo;
+
 /**
  * <h1>This class contains handy helper functions.</h1>
  *
  * @author Team Caligula
  * @version 1.0
- * @since 02.04.2019
+ * @since 0.1
  */
-package miniaesdemo;
-
 public class Utilities {
 
     //==================================================================================================

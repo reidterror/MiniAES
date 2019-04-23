@@ -1,18 +1,25 @@
-/**
- * <h1>Mini-AES</h1>
- *
- * <p>>This class implements all of the necessary steps to encrypt and decrypt strings with the Mini AES algorithm.</p>
- * 
- * @author Team Caligula
- * @version 1.0
- * @since 02.04.2019
- */
 package miniaesdemo;
 
 import javafx.util.Pair;
 
-class MiniAES {
-
+/**
+ * <h1>Mini-AES</h1>
+ *
+ * <p>This class implements all of the necessary steps to encrypt and decrypt strings with the Mini AES algorithm.</p>
+ * 
+ * @author Team Caligula
+ * @version 1.0
+ * @since 0.1
+ */
+public class MiniAES {
+    
+    /**
+     * <p>The constructor is empty, this class doesn't contain any variables outside of its methods.</p>
+     */
+    MiniAES() {
+        
+    }
+    
     /**
      * <p>This method takes a 4 nibble segment and applies a given round key to it. This is done by getting the result of applying the XOR operation to each individual nibble.</p>
      *
@@ -35,7 +42,7 @@ class MiniAES {
     }
 
     /**
-     * <p>This method substitutes the contents of the plainText array with values from the NibbleSub table.</p>
+     * <p>This method substitutes the contents of the plainText array with values from the <b><u>{@link Tables#NIBBLE_SUB_TABLE}</u></b> table using the <b><u>{@link Tables#getNibbleSubValue(int)}</u></b> method.</p>
      *
      * @param plainText An Integer Array of four elements that stores a segment of the plaintext.
      *
@@ -54,7 +61,7 @@ class MiniAES {
     }
 
     /**
-     * <p>This method substitutes the contents of the plainText array with values from the inverse NibbleSub table.</p>
+     * <p>This method substitutes the contents of the plainText array with values from the <b><u>{@link Tables#NIBBLE_SUB_TABLE}</u></b> table using the <b><u>{@link Tables#getInverseNibbleSubValue(int)}</u></b> method.</p>
      *
      * @param plainText An Integer Array of four elements that stores a segment of the plaintext.
      *
@@ -131,7 +138,7 @@ class MiniAES {
 
     /**
      * <p>This method multiplies each element by an element of a constant array,
-     * the result of this multiplication is retrieved from {@link Tables#MULTIPLICATION_TABLE}.</p>
+     * the result of this multiplication is retrieved from <b><u>{@link Tables#MULTIPLICATION_TABLE}</u></b>.</p>
      *
      * @param plainText An Integer Array of four elements that stores a segment of the plaintext.
      *
@@ -155,9 +162,9 @@ class MiniAES {
     }
     
     /**
-     * <p>This method multiplies each element of the plaintext by a <a target='_blank' href='https://en.wikipedia.org/wiki/Rijndael_MixColumns#Matrix_representation'>Rijndael constant matrix</a>.</p>
+     * <p>This method multiplies each element of the plaintext by a <b><u><a target='_blank' href='https://en.wikipedia.org/wiki/Rijndael_MixColumns#Matrix_representation'>Rijndael constant matrix</a></u></b>.</p>
      * <p>Each value is multiplied by a row of the constant matrix. Each multiplication retrieves a value from a multiplication table.</p>
-     * <p>Example: {@link Tables#getMUL2Value(int)}.</p>
+     * <p>Example: <b><u>{@link Tables#getMUL2Value(int)}</u></b>.</p>
      * 
      * @param plainText An Integer Array of four elements that stores a segment of the plaintext.
      *
@@ -175,9 +182,9 @@ class MiniAES {
     }
     
     /**
-     * <p>This method multiplies each element of the plaintext by a <a target='_blank' href='https://en.wikipedia.org/wiki/Rijndael_MixColumns#InverseMixColumns'>Rijndael inverse constant matrix</a>.</p>
+     * <p>This method multiplies each element of the plaintext by a <b><u><a target='_blank' href='https://en.wikipedia.org/wiki/Rijndael_MixColumns#InverseMixColumns'>Rijndael inverse constant matrix</a></u></b>.</p>
      * <p>Each value is multiplied by a row of the inverse constant matrix. Each multiplication retrieves a value from a multiplication table.</p>
-     * <p>Example: {@link Tables#getMUL14Value(int)}.</p>
+     * <p>Example: <b><u>{@link Tables#getMUL14Value(int)}</u></b>.</p>
      * 
      * @param cipherText An Integer Array of four elements that stores a segment of the ciphertext.
      *
@@ -199,28 +206,28 @@ class MiniAES {
      * the Mini-AES. The process is broken down into a few steps:</p>
      *
      * <ol>
-     * <li><b>{@link #addRoundKey(int[], int[])}</b>: Adding the initial key to the plain text.</li>
+     * <li><b><u>{@link #addRoundKey(int[], int[])}</u></b>: Adding the initial key to the plain text.</li>
      *
-     * <li><b>{@link #nibbleSub(int[])}</b>: Substituting the values in the result of the
-     * <b>{@link #addRoundKey(int[], int[])}</b> step with values from the <b>{@link Tables#NIBBLE_SUB_TABLE}</b> table using the <b>{@link Tables#getNibbleSubValue(int)}</b> method.</li>
+     * <li><b><u>{@link #nibbleSub(int[])}</u></b>: Substituting the values in the result of the
+     * <b><u>{@link #addRoundKey(int[], int[])}</u></b> step with values from the <b><u>{@link Tables#NIBBLE_SUB_TABLE}</u></b> table using the <b><u>{@link Tables#getNibbleSubValue(int)}</u></b> method.</li>
      *
-     * <li><b>{@link #shiftRows(int[])}</b>: Shifting the last two elements of the result of the
-     * <b>{@link #nibbleSub(int[])}</b> step.</li>
+     * <li><b><u>{@link #shiftRows(int[])}</u></b>: Shifting the last two elements of the result of the
+     * <b><u>{@link #nibbleSub(int[])}</u></b> step.</li>
      *
-     * <li><b>{@link #mixColumns(int[])}</b>: Multiplying the result the <b>{@link #shiftRows(int[])}</b> step
+     * <li><b><u>{@link #mixColumns(int[])}</u></b>: Multiplying the result the <b><u>{@link #shiftRows(int[])}</u></b> step
      * by a constant array.</li>
      *
-     * <li><b>{@link #addRoundKey(int[], int[])}</b>: Adding the first round key to the result of the
-     * <b>{@link #mixColumns(int[])}</b> step.</li>
+     * <li><b><u>{@link #addRoundKey(int[], int[])}</u></b>: Adding the first round key to the result of the
+     * <b><u>{@link #mixColumns(int[])}</u></b> step.</li>
      *
-     * <li><b>{@link #nibbleSub(int[])}</b>: Substituting the values in the result of the
-     * <b>{@link #addRoundKey(int[], int[])}</b> step with values from the <b>{@link Tables#NIBBLE_SUB_TABLE}</b> table using the <b>{@link Tables#getNibbleSubValue(int)}</b> method.</li>
+     * <li><b><u>{@link #nibbleSub(int[])}</u></b>: Substituting the values in the result of the
+     * <b><u>{@link #addRoundKey(int[], int[])}</u></b> step with values from the <b><u>{@link Tables#NIBBLE_SUB_TABLE}</u></b> table using the <b><u>{@link Tables#getNibbleSubValue(int)}</u></b> method.</li>
      *
-     * <li><b>{@link #shiftRows(int[])}</b>: Shifting the last two elements of the result of the
-     * <b>{@link #nibbleSub(int[])}</b> step.</li>
+     * <li><b><u>{@link #shiftRows(int[])}</u></b>: Shifting the last two elements of the result of the
+     * <b><u>{@link #nibbleSub(int[])}</u></b> step.</li>
      *
-     * <li><b>{@link #addRoundKey(int[], int[])}</b>: Adding the second round key to the result of the
-     * <b>{@link #shiftRows(int[])}</b> step.</li>
+     * <li><b><u>{@link #addRoundKey(int[], int[])}</u></b>: Adding the second round key to the result of the
+     * <b><u>{@link #shiftRows(int[])}</u></b> step.</li>
      * </ol>
      *
      * @param plainText An Integer Array of four elements that stores a segment of the plaintext.
@@ -266,7 +273,7 @@ class MiniAES {
     /**
      * <h2>Encrypt</h2>
      *
-     * <p>This method works the same way as {@link #Encrypt(String plainText, String key)}, but it generates a random key instead of the user inputting one.</p>
+     * <p>This method works the same way as the <b><u>{@link #Encrypt(String plainText, String key)}</u></b> method, but it generates a random key instead of the user inputting one.</p>
      *
      * @param plainText An Integer Array of four elements that stores a segment of the plaintext.
      *
@@ -323,29 +330,29 @@ class MiniAES {
      * the Mini-AES. The process is broken down into a few steps:</p>
      *
      * <ol>
-     * <li><b>{@link #addRoundKey(int[], int[])}</b>: Adding the second round key to the result of the
-     * <b>{@link #shiftRows(int[])}</b> step.</li>
+     * <li><b><u>{@link #addRoundKey(int[], int[])}</u></b>: Adding the second round key to the result of the
+     * <b><u>{@link #shiftRows(int[])}</u></b> step.</li>
      *
-     * <li><b>{@link #inverseNibbleSub(int[])}</b>: Substituting the values in the result of the
-     * <b>{@link #addRoundKey(int[], int[])}</b> step with the values from the <b>{@link Tables#NIBBLE_SUB_TABLE}</b> table using the <b>{@link Tables#getNibbleSubValue(int)}</b> method.</li>
+     * <li><b><u>{@link #inverseNibbleSub(int[])}</u></b>: Substituting the values in the result of the
+     * <b><u>{@link #addRoundKey(int[], int[])}</u></b> step with the values from the <b><u>{@link Tables#NIBBLE_SUB_TABLE}</u></b> table using the <b><u>{@link Tables#getInverseNibbleSubValue(int)}</u></b> method.</li>
      *
-     * <li><b>{@link #shiftRows(int[])}</b>: Shifting the last two elements of the result of the
-     * (<b>{@link #inverseNibbleSub(int[])}</b>) step.</li>
+     * <li><b><u>{@link #shiftRows(int[])}</u></b>: Shifting the last two elements of the result of the
+     * (<b><u>{@link #inverseNibbleSub(int[])}</u></b>) step.</li>
      *
-     * <li><b>{@link #addRoundKey(int[], int[])}</b>: Adding the first round key to the result of the
-     * <b>{@link #shiftRows(int[])}</b> step.</li>
+     * <li><b><u>{@link #addRoundKey(int[], int[])}</u></b>: Adding the first round key to the result of the
+     * <b><u>{@link #shiftRows(int[])}</u></b> step.</li>
      *
-     * <li><b>{@link #mixColumns(int[])}</b>: Multiplying the result the <b>{@link #addRoundKey(int[], int[])}</b>
+     * <li><b><u>{@link #mixColumns(int[])}</u></b>: Multiplying the result the <b><u>{@link #addRoundKey(int[], int[])}</u></b>
      * step by a constant array.</li>
      *
-     * <li><b>{@link #inverseNibbleSub(int[])}</b>: Substituting the values in the result of the
-     * <b>{@link #addRoundKey(int[], int[])}</b> step with the values from the <b>{@link Tables#NIBBLE_SUB_TABLE}</b> table using the <b>{@link Tables#getNibbleSubValue(int)}</b> method.</li>
+     * <li><b><u>{@link #inverseNibbleSub(int[])}</u></b>: Substituting the values in the result of the
+     * <b><u>{@link #addRoundKey(int[], int[])}</u></b> step with the values from the <b><u>{@link Tables#NIBBLE_SUB_TABLE}</u></b> table using the <b><u>{@link Tables#getInverseNibbleSubValue(int)}</u></b> method.</li>
      *
-     * <li>{@link #shiftRows(int[])}: Shifting the last two elements of the result of the
-     * (<b>{@link #inverseNibbleSub(int[])}</b>) step.</li>
+     * <li><b><u>{@link #shiftRows(int[])}</u></b>: Shifting the last two elements of the result of the
+     * <b><u>{@link #inverseNibbleSub(int[])}</u></b> step.</li>
      *
-     * <li><b>{@link #addRoundKey(int[], int[])}</b>: Adding the initial key to the result of the
-     * <b>{@link #shiftRows(int[])}</b> step.</li>
+     * <li><b><u>{@link #addRoundKey(int[], int[])}</u></b>: Adding the initial key to the result of the
+     * <b><u>{@link #shiftRows(int[])}</u></b> step.</li>
      * </ol>
      *
      * @param cipherText An Integer Array of four elements that stores a segment of the cipherText.
@@ -390,7 +397,7 @@ class MiniAES {
     
     /**
      * <p>This method divides an ASCII string into a matrix of 4 columns and however many rows are necessary.
-     * It proceeds to encrypt every segment using a user provided binary key. It follows the same process as {@link #Encrypt(java.lang.String, java.lang.String)}.</p>
+     * It proceeds to encrypt every segment using a user provided binary key. It follows the same process as the <b><u>{@link #Encrypt(java.lang.String, java.lang.String)}</u></b> method.</p>
      * 
      * @param plainText A string that stores the plaintext.
      *
@@ -435,7 +442,7 @@ class MiniAES {
     
     /**
      * <p>This method divides an ASCII string into a matrix of 4 columns and however many rows are necessary.
-     * It proceeds to encrypt every segment using a randomly generated binary key. It follows the same process as {@link #EncryptText(java.lang.String, java.lang.String)}.</p>
+     * It proceeds to encrypt every segment using a randomly generated binary key. It follows the same process as the  <b><u>{@link #EncryptText(java.lang.String, java.lang.String)}</u></b> method.</p>
      * 
      * @param plainText A string that stores the plaintext.
      *
@@ -490,7 +497,7 @@ class MiniAES {
 
     /**
      * <p>This method divides an ASCII string into a matrix of 4 columns and however many rows are necessary.
-     * It proceeds to decrypt every segment using a user provided binary key. It follows the same process as {@link #Decrypt(java.lang.String, java.lang.String)}.</p>
+     * It proceeds to decrypt every segment using a user provided binary key. It follows the same process as the  <b><u>{@link #Decrypt(java.lang.String, java.lang.String)}</u></b> method.</p>
      * 
      * @param cipherText A hexadecimal string that stores the ciphertext.
      *

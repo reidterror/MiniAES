@@ -1,25 +1,17 @@
+package miniaesdemo;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <h1>Contains nibble substitution table and mix column Multiplication
  * table.</h1>
  *
  * @author Team Caligula
  * @version 1.0
- * @since 02.04.2019
+ * @since 0.1
  */
-package miniaesdemo;
-
-import java.util.HashMap;
-import java.util.Map;
-
-class Tables {
-
-    /**
-     * <h1>The following tables are for:</h1>
-     * <ol>
-     * <li>Nibble Substitution Table<li>
-     * <li>MixColumns Multiplication Table<li>
-     * </ol>
-     */
+public class Tables {
 
     // Creating a constant HashMap object for the nibble substitution table.
     private static final HashMap<Integer, Integer> NIBBLE_SUB_TABLE;

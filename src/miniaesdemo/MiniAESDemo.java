@@ -1,10 +1,3 @@
-/**
- * <h1>Class used to test the Mini-AES</h1>
- *
- * @author Team Caligula
- * @version 1.0
- * @since 02.04.2019
- */
 package miniaesdemo;
 
 import java.util.Scanner;
@@ -12,6 +5,13 @@ import javafx.util.Pair;
 import static miniaesdemo.Utilities.printLogo;
 
 // Class for Testing the Mini-AES
+/**
+ * <h1>Class used to test the Mini-AES</h1>
+ *
+ * @author Team Caligula
+ * @version 1.0
+ * @since 0.1
+ */
 public class MiniAESDemo {
 
     /**

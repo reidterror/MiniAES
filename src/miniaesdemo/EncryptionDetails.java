@@ -1,27 +1,36 @@
-/**
- * <h1>EncryptionDetails generates and stores encryption keys.</h1>
- *
- * @author Team Caligula
- * @version 1.0
- * @since 02.04.2019
- */
+
 package miniaesdemo;
 
 // Class for storage and generation of the Keys
-class EncryptionDetails {
+/**
+ * <p>This class generates and stores encryption keys. It provides a straightforward way to access the keys (<b><u>{@link #getKey0()}, {@link #getKey1()}, {@link #getKey2()}</u></b> methods).</p>
+ *
+ * @author Team Caligula
+ * @version 1.0
+ * @since 0.1
+ */
+public class EncryptionDetails {
     // Creating Integer Arrays
     // to store the various keys
-
+    
+    /**
+     * <p>This variable is an integer array of four elements which stores the <b>initial</b> key. Which is used to calculate the rest of the keys using <b><u>{@link #generateKeys(int[])}</u></b> method.</p>
+     */
     private int[] key0;
+    
+    /**
+     * <p>This variable is an integer array of four elements which stores the <b>first</b> round key. Calculated using <b><u>{@link #key0}</u></b> with the <b><u>{@link #generateKey1()}</u></b> method.</p>
+     */
     private int[] key1;
+    
+    /**
+     * <p>This variable is an integer array of four elements which stores the <b>second</b> round key. Calculated using <b><u>{@link #key1}</u></b> with the <b><u>{@link #generateKey2()}</u></b> method.</p>
+     */
     private int[] key2;
 
     // Constructor Methods
     /**
-     * <h2>Constructor Method with no parameters</h2>
-     *
-     * <p>
-     * Constructor method that initializes the local variables with empty
+     * <p>Constructor method that initializes the local variables with empty
      * objects.</p>
      */
     public EncryptionDetails() {
@@ -31,11 +40,8 @@ class EncryptionDetails {
     }
 
     /**
-     * <h2>Constructor Method with an initial key parameter</h2>
-     *
-     * <p>
-     * Constructor method that takes in an initial key as a parameter and
-     * automatically generates the rest of the keys.</p>
+     * <p>Constructor method that takes in an <b>initial</b> key as a parameter and
+     * automatically generates the rest of the keys using the <b><u>{@link #generateKey1()}</u></b> and <b><u>{@link #generateKey2()}</u></b> methods.</p>
      *
      * @param initialKey A 16-bit binary String Array.
      */
@@ -46,10 +52,8 @@ class EncryptionDetails {
     }
 
     /**
-     * <h2>Generate all of the three round keys.</h2>
-     *
-     * <p>This method takes in an initial key and generates the rest of the
-     * keys.</p>
+     * <p>This method takes in an <b>initial</b> key as a parameter and generates the rest of the
+     * keys using the <b><u>{@link #generateKey1()}</u></b> and <b><u>{@link #generateKey2()}</u></b> methods.</p>
      * 
      * @param key A variable that contains the initial key value.
      */
@@ -60,10 +64,7 @@ class EncryptionDetails {
     }
 
     /**
-     * <h2>Generate the first round key.</h2>
-     *
-     * <p>
-     * This method generates the first round key.</p>
+     * <p>This method generates the <b>first</b> round key using the <b>initial</b> key.</p>
      *
      * @return Returns an Integer Array.
      */
@@ -81,10 +82,7 @@ class EncryptionDetails {
     }
 
     /**
-     * <h2>Generate the second round key.</h2>
-     *
-     * <p>
-     * This method generates the second round key.</p>
+     * <p>This method generates the <b>second</b> round key, using the <b>first</b> round key.</p>
      *
      * @return Returns an Integer Array.
      */
@@ -103,9 +101,9 @@ class EncryptionDetails {
 
     // Setter Method
     /**
-     * <h2>Setter method for the initial key</h2>
+     * <p>Setter method for the <b>initial</b> key. It gives users the ability to set the private <b><u>{@link #key0}</u></b> variable.</p>
      *
-     * @param key An Integer Array.
+     * @param key A 16-bit string containing the initial key.
      */
     public void setKey0(String key) {
         key0 = Utilities.stringToIntArray(key);
@@ -113,7 +111,7 @@ class EncryptionDetails {
 
     // Getter Methods for Key0,Key1,Key2
     /**
-     * <h2>Getter method for the initial key</h2>
+     * <p>Getter method for the <b>initial</b> key. It allows users the ability to get the private <b><u>{@link #key0}</u></b> variable.</p>
      *
      * @return Returns the initial key.
      */
@@ -122,7 +120,7 @@ class EncryptionDetails {
     }
 
     /**
-     * <h2>Getter method for the first round key.</h2>
+     * <p>Getter method for the <b>first</b> key. It allows users the ability to get the private <b><u>{@link #key1 }</u></b> variable.</p>
      *
      * @return Returns the first round key.
      */
@@ -131,7 +129,7 @@ class EncryptionDetails {
     }
 
     /**
-     * <h2>Getter method for the second round key</h2>
+     * <p>Getter method for the <b>second</b> key. It allows users the ability to get the private <b><u>{@link #key2}</u></b> variable.</p>
      *
      * @return Returns the second round key.
      */
@@ -141,13 +139,9 @@ class EncryptionDetails {
 
     // toString Methods using the intArraytoString Method in class Utilities.
     /**
-     * <h2>toStirng Method</h2>
+     * <p>This method uses the <b><u>{@link Utilities#intArraytoString(int[])}</u></b> method to convert the array into a string</p>
      *
-     * <p>
-     * This method uses the intArraytoString Method in class ConversionUtilities
-     * to convert the array into a string</p>
-     *
-     * @param arrayToConvert An Integer Array.
+     * @param arrayToConvert An Integer Array to be converted to string.
      *
      * @return Returns a 16-bit binary String.
      */
