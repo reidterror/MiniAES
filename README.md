@@ -1,2 +1,2 @@
 # MiniAES
-Black Chicken - Chigga
+The minified AES algorithm. Brought to you by Team Caligula.
