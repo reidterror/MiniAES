@@ -1,7 +1,7 @@
 package miniaesdemo;
 
 /**
- * <h1>This class contains handy helper functions.</h1>
+ * <p>This class contains helper methods.</p>
  *
  * @author Team Caligula
  * @version 1.0

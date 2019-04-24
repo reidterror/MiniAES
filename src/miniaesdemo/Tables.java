@@ -4,9 +4,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <h1>Contains nibble substitution table and mix column Multiplication
- * table.</h1>
- *
+ * <p>This class contains constant tables with results to calculations done in: </p>
+ * <ol>
+ *  <li><b><u>{@link MiniAES#nibbleSub(int[])}</u></b></li>
+ *  <li><b><u>{@link MiniAES#shiftRows(int[])}</u></b></li>
+ *  <li><b><u>{@link MiniAES#subBytes(int[])}</u></b></li>
+ *  <li><b><u>{@link MiniAES#mixColumns(int[])}</u></b></li>
+ *  <li><b><u>{@link MiniAES#mixColumnsAES(int[])}</u></b></li>
+ *  <li><b><u>{@link MiniAES#inverseNibbleSub(int[])}</u></b></li>
+ *  <li><b><u>{@link MiniAES#inverseSubBytes(int[])}</u></b></li>
+ *  <li><b><u>{@link MiniAES#inverseMixColumnsAES(int[])}</u></b></li>
+ * </ol>
+ * 
+ * <p>It provides a straightforward way to access a specific value from each table: </p>
+ * <ol>
+ *  <li><b><u>{@link #getNibbleSubValue(int)}</u></b></li>
+ *  <li><b><u>{@link #getInverseNibbleSubValue(int)}</u></b></li>
+ *  <li><b><u>{@link #getMixColumnValue(int, int)}</u></b></li>
+ *  <li><b><u>{@link #getSBoxValue(int)}</u></b></li>
+ *  <li><b><u>{@link #getInverseSBoxValue(int)}</u></b></li>
+ *  <li><b><u>{@link #getMUL2Value(int)}</u></b></li>
+ *  <li><b><u>{@link #getMUL3Value(int)}</u></b></li>
+ *  <li><b><u>{@link #getMUL9Value(int)}</u></b></li>
+ *  <li><b><u>{@link #getMUL11Value(int)}</u></b></li>
+ *  <li><b><u>{@link #getMUL13Value(int)}</u></b></li>
+ *  <li><b><u>{@link #getMUL13Value(int)}</u></b></li>
+ *  <li><b><u>{@link #getMUL14Value(int)}</u></b></li>
+ * </ol>
+ * 
  * @author Team Caligula
  * @version 1.0
  * @since 0.1
@@ -14,14 +39,71 @@ import java.util.Map;
 public class Tables {
 
     // Creating a constant HashMap object for the nibble substitution table.
+    /**
+     * <p>This variable is a HashMap of elements that store the <b>nibble substitution table</b>. Values in this table can be accessed through it's getter method.
+     * <b><u>{@link #getNibbleSubValue(int)}</u></b> and <b><u>{@link #getInverseNibbleSubValue(int)}</u></b>.</p>
+     */
     private static final HashMap<Integer, Integer> NIBBLE_SUB_TABLE;
 
 
     // Creating a constant 2 dimensional integer array for the mixcolumns Multiplication table.
+    /**
+     * <p>This variable is a n integer array of elements that store the <b>MiniAES mixColumns multiplication substitution table</b>. Values in this table can be accessed through it's getter method. <b><u>{@link #getMixColumnValue(int, int)}</u></b>.</p>
+     */
     private static final int[][] MULTIPLICATION_TABLE;
-    private static final int[][] S_BOX_TABLE, INVERTED_S_BOX_TABLE, MUL2, MUL3, MUL9, MUL11, MUL13, MUL14;
+    
+    /**
+     * <p>This variable is a n integer array of elements that store the <b>AES S-BOX substitution table</b>. Values in this table can be accessed through it's getter method.
+     * <b><u>{@link #getSBoxValue(int)}</u></b>.</p>
+     */
+    private static final int[][] S_BOX_TABLE;
+    
+    /**
+    * <p>This variable is a n integer array of elements that store the <b>AES inverse S-BOX substitution table</b>. Values in this table can be accessed through it's getter method.
+    * <b><u>{@link #getInverseSBoxValue(int)}</u></b>.</p>
+    */
+    private static final int[][] INVERTED_S_BOX_TABLE;
+    
+    /**
+    * <p>This variable is a n integer array of elements that store the <b>Multiplication results when input is multiplied by 2</b>. Values in this table can be accessed through it's getter method.
+    * <b><u>{@link #getMUL2Value(int) }</u></b>.</p>
+    */
+    private static final int[][] MUL2;
+    
+    /**
+    * <p>This variable is a n integer array of elements that store the <b>Multiplication results when input is multiplied by 3</b>. Values in this table can be accessed through it's getter method.
+    * <b><u>{@link #getMUL3Value(int) }</u></b>.</p>
+    */
+    private static final int[][] MUL3;
+    
+    /**
+    * <p>This variable is a n integer array of elements that store the <b>Multiplication results when input is multiplied by 9</b>. Values in this table can be accessed through it's getter method.
+    * <b><u>{@link #getMUL9Value(int) }</u></b>.</p>
+    */
+    private static final int[][] MUL9;
+    
+    /**
+    * <p>This variable is a n integer array of elements that store the <b>Multiplication results when input is multiplied by 11</b>. Values in this table can be accessed through it's getter method.
+    * <b><u>{@link #getMUL11Value(int) }</u></b>.</p>
+    */
+    private static final int[][] MUL11;
+    
+    /**
+    * <p>This variable is a n integer array of elements that store the <b>Multiplication results when input is multiplied by 13</b>. Values in this table can be accessed through it's getter method.
+    * <b><u>{@link #getMUL13Value(int) }</u></b>.</p>
+    */
+    private static final int[][] MUL13;
+    
+    /**
+    * <p>This variable is a n integer array of elements that store the <b>Multiplication results when input is multiplied by 14</b>. Values in this table can be accessed through it's getter method.
+    * <b><u>{@link #getMUL14Value(int) }</u></b>.</p>
+    */
+    private static final int[][] MUL14;
 
     //Constructor for the table class.
+    /**
+     * <p>Constructor method that initializes the local variables with all of the tables' contents.</p>
+     */
     static {
 
         // Initializing the HashMap object.
@@ -218,8 +300,6 @@ public class Tables {
 
     //Getter Methods for the NibbleSubTable and MixColumnsTable
     /**
-     * <h2>Getter Method for the Values in the NibbleSub Table</h2>
-     *
      * <p>This method takes a value and using a nibble substitution table, returns
      * the substituted value.</p>
      *
@@ -232,8 +312,6 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter method for the values in the inverse NibbleSub table </h2>
-     *
      * <p>This method takes a value and using a nibble substitution table, returns
      * the inverted substituted value.</p>
      *
@@ -254,8 +332,6 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter Method for the Values in the MixColumns Table</h2>
-     *
      * <p>This method simulates a MixColumn Multiplication using the MixColumn
      * Multiplication table to generate results</p>
      *
@@ -268,10 +344,8 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter method for the values in the S-Box Table</h2>
-     *
-     * <p>This method gives the substitution value of our input from Rijndael's
-     * S-BOX table.</p>
+     * <p>This method gives the substitution value of our input from 
+     * <b><u><a target='_blank' href='https://en.wikipedia.org/wiki/Rijndael_S-box#Forward_S-box'>Rijndael's Inverted S-BOX table</a></u></b>..</p>
      *
      * @param value An integer value to be substituted with an S-BOX value.
      * @return Returns the substituted integer value.
@@ -281,10 +355,8 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter method for the values in the inverse S-Box Table</h2>
-     *
      * <p>This method gives the inverted substitution value of our input from
-     * Rijndael's Inverted S-BOX table.</p>
+     * <b><u><a target='_blank' href='https://en.wikipedia.org/wiki/Rijndael_S-box#Inverse_S-box'>Rijndael's Inverted S-BOX table</a></u></b>.</p>
      *
      * @param value An integer value to be substituted with an inverted S-BOX
      * value.
@@ -295,13 +367,11 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter method for the values in the Multiply by 2 Table</h2>
-     *
      * <p>This method gives the inverted substitution value of our input from
-     * Rijndael's multiply by 2 table.</p>
+     * <b><u>{@link #MUL2}</u></b> table.</p>
      *
      * @param value An integer value to be substituted with a value from the
-     * Multiply by 2 table.
+     * <b><u>{@link #MUL2}</u></b> table.
      * @return Returns the substituted integer value.
      */
     public static int getMUL2Value(int value) {
@@ -309,13 +379,11 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter method for the values in the Multiply by 3 Table</h2>
-     *
      * <p>This method gives the inverted substitution value of our input from
-     * Rijndael's multiply by 3 table.</p>
+     * <b><u>{@link #MUL3}</u></b> table.</p>
      *
      * @param value An integer value to be substituted with a value from the
-     * Multiply by 3 table.
+     * <b><u>{@link #MUL3}</u></b> table.
      * @return Returns the substituted integer value.
      */
     public static int getMUL3Value(int value) {
@@ -323,13 +391,11 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter method for the values in the Multiply by 9 Table</h2>
-     *
      * <p>This method gives the inverted substitution value of our input from
-     * Rijndael's multiply by 9 table.</p>
+     * <b><u>{@link #MUL9}</u></b> table.</p>
      *
      * @param value An integer value to be substituted with a value from the
-     * Multiply by 9 table.
+     * <b><u>{@link #MUL9}</u></b> table.
      * @return Returns the substituted integer value.
      */
     public static int getMUL9Value(int value) {
@@ -337,13 +403,11 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter method for the values in the Multiply by 11 Table</h2>
-     *
      * <p>This method gives the inverted substitution value of our input from
-     * Rijndael's multiply by 11 table.</p>
+     * <b><u>{@link #MUL11}</u></b> table.</p>
      *
      * @param value An integer value to be substituted with a value from the
-     * Multiply by 11 table.
+     * <b><u>{@link #MUL11}</u></b> table.
      * @return Returns the substituted integer value.
      */
     public static int getMUL11Value(int value) {
@@ -351,13 +415,11 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter method for the values in the Multiply by 13 Table</h2>
-     *
      * <p>This method gives the inverted substitution value of our input from
-     * Rijndael's multiply by 13 table.</p>
+     * <b><u>{@link #MUL13}</u></b> table.</p>
      *
      * @param value An integer value to be substituted with a value from the
-     * Multiply by 13 table.
+     * <b><u>{@link #MUL13}</u></b> table.
      * @return Returns the substituted integer value.
      */
     public static int getMUL13Value(int value) {
@@ -365,13 +427,11 @@ public class Tables {
     }
 
     /**
-     * <h2>Getter method for the values in the Multiply by 14 Table</h2>
-     *
      * <p>This method gives the inverted substitution value of our input from
-     * Rijndael's multiply by 14 table.</p>
+     * <b><u>{@link #MUL14}</u></b> table.</p>
      *
      * @param value An integer value to be substituted with a value from the
-     * Multiply by 14 table.
+     * <b><u>{@link #MUL14}</u></b> table.
      * @return Returns the substituted integer value.
      */
     public static int getMUL14Value(int value) {

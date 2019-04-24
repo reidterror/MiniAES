@@ -3,8 +3,6 @@ package miniaesdemo;
 import javafx.util.Pair;
 
 /**
- * <h1>Mini-AES</h1>
- *
  * <p>This class implements all of the necessary steps to encrypt and decrypt strings with the Mini AES algorithm.</p>
  * 
  * @author Team Caligula
