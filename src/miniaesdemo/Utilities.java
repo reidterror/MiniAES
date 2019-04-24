@@ -43,7 +43,7 @@ public class Utilities {
         }
 
         int[] intArray = new int[4];
-
+        
         for (int i = 0; i < 4; i++) {
             intArray[i] = Integer.parseInt(stringToConvert[i], 2);
             //System.out.println(intArray[i]);
@@ -77,7 +77,8 @@ public class Utilities {
         }
 
         String[] stringArray = new String[4];
-
+        //For loop for interating through the String Array
+        //and  formats the array to integer array
         for (int i = 0; i < 4; i++) {
             stringArray[i] = formatBinaryString(Integer.toBinaryString(intToConvert[i]));
             //System.out.println(stringArray[i]);
@@ -141,7 +142,7 @@ public class Utilities {
      */
     public static String intArrayToHexString(int[] intArray) {
         String output = "";
-
+        //Loops thought the int Arrya and formats it to hexadecimal 
         for (int iter = 0; iter < intArray.length; iter++) {
             output += String.format("%02x", intArray[iter]);
         }
@@ -176,30 +177,48 @@ public class Utilities {
      * @return Returns an Integer Matrix of the input data split into rows of 4 characters, the last one may contain padding.
      */
     public static int[][] segmentAndPadData(String inputData) {
+        //Constant Value that stores the lenght
         final int inputDataLength = inputData.length();
+        //Constant Value that stores the segmentation lenght derived from
+        //the division by four
         final int numOfSegments = (int) Math.ceil(inputDataLength / 4.0);
+        
+        //Constant Value that stores the padding size which is used 
+        //to see if there is any remainder in the length of the input data
         final int paddingSize = (4 - (inputDataLength % 4));
-
+        
+        //Value that indicates the position 
+        //at which the Array is conveted to the 2D Array 
         int byteDataIndicator = 0;
+        
+        //Iterate through the input data by storing the byte data and the padding data
+        
         int[] byteData = new int[inputDataLength];
 
         for (int i = 0; i < inputDataLength; i++) {
             byteData[i] = (int) inputData.charAt(i);
         }
-
+        // Creating a 2D Arry 
         int[][] segmentedData = new int[numOfSegments][4];
-
+        
+        //Two for loops for the rows and colomns
         for (int row = 0; row < numOfSegments; row++) {
             for (int col = 0; col < 4; col++) {
+                //Storing to the 2D Array until the inciator is lower that the input length
                 if (byteDataIndicator < inputDataLength) {
                     segmentedData[row][col] = byteData[byteDataIndicator];
-                } else {
+                } 
+                //If the indicator exceeds the length then the padding is added 
+                //until the colomn section reches 4 
+                else {
                     segmentedData[row][col] = paddingSize;
                 }
 
                 byteDataIndicator++;
             }
+            //End of loop
         }
+        //End of loop
 
         return segmentedData;
     }
@@ -212,19 +231,30 @@ public class Utilities {
      * @return Returns an Integer Matrix of the input data split into rows of 4 characters.
      */
     public static int[][] segmentData(int[] inputData) {
+        //Constant value for storing the length of the Array
         final int inputDataLength = inputData.length;
+        //Constant value for storing the segmentation length
+        //which is set to four
         final int numOfSegments = inputDataLength / 4;
-
+        
+        //Value that indicates the position 
+        //at which the Array is conveted to the 2D Array
         int DataIndicator = 0;
+        
+        //Creating a 2D Array
         int[][] segmentedData = new int[numOfSegments][4];
-
+        
+        //Two for loops for the rows and colomns
         for (int row = 0; row < numOfSegments; row++) {
             for (int col = 0; col < 4; col++) {
+                //Stroing the input data depending on the indicator
                 segmentedData[row][col] = inputData[DataIndicator];
                 DataIndicator++;
             }
+            //End of loop
         }
-
+        //End of loop
+        //System.out.println(Array.todeepString(segmentedData));
         return segmentedData;
     }
 
@@ -236,14 +266,18 @@ public class Utilities {
      * @return Returns an Integer matrix of the input data with the padding removed from it.
      */
     public static int[] removePadding(int[] paddedInput) {
+        //Value that store the lenght substracted by one 
         int checkPadding = paddedInput[paddedInput.length - 1];
-
+        
+        //Checking for the length of the padding size 
         if (checkPadding == 1 || checkPadding == 2 || checkPadding == 3) {
+            //Iterate through the padded input and removes the padding.
             int[] cleanInput = new int[4 - checkPadding];
-
+            
             for (int iter = 0; iter < cleanInput.length; iter++) {
                 cleanInput[iter] = paddedInput[iter];
             }
+            //End of loop
 
             return cleanInput;
         } else {

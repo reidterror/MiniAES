@@ -1,39 +1,42 @@
 package miniaesdemo;
 
 import java.util.Scanner;
+import javafx.application.Application;
 import javafx.util.Pair;
 import static miniaesdemo.Utilities.printLogo;
 
 // Class for Testing the Mini-AES
 /**
- * <h1>Class used to test the Mini-AES</h1>
+ * <p>Class used to test the Mini-AES</p>
  *
  * @author Team Caligula
  * @version 1.0
  * @since 0.1
  */
 public class MiniAESDemo {
-
     /**
      *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Application.launch(gui.class, args);
+        
         Scanner scanner = new Scanner(System.in);
         int cliOption;
 
         cliMenu();
-
+        
         do {
             System.out.print("\nInput: ");
             cliOption = scanner.nextInt();
-
+            //Switch statement that iterates through our featuers depending on the input
             switch (cliOption) {
                 case -1: {
                     cliMenu();
                     break;
                 }
                 case 1: {
+                    //Encryption of Binary String 
                     System.out.print("\nEnter binary string plaintext: ");
                     scanner.nextLine();
                     String plainText = scanner.nextLine();
@@ -51,13 +54,15 @@ public class MiniAESDemo {
                 }
 
                 case 2: {
+                    //Encryption of Binary String with random Key
                     System.out.print("\nEnter binary string plaintext: ");
                     scanner.nextLine();
                     String plainText = scanner.nextLine();
-
+                    
+                    //Cheking for correct input 
                     if (plainText.length() == 19) {
                         Pair<String, String> result = new Pair<>("", "");
-
+                     
                         try {
                             result = MiniAES.Encrypt(plainText, true);
                         } catch (Exception e) {
@@ -74,6 +79,7 @@ public class MiniAESDemo {
                 }
 
                 case 3: {
+                    //Dencryption of Binary String
                     System.out.print("\nEnter binary string cipher text: ");
                     scanner.nextLine();
                     String cipherText = scanner.nextLine();
@@ -91,6 +97,7 @@ public class MiniAESDemo {
                 }
 
                 case 4: {
+                    //Encryption of Text   
                     System.out.print("\nEnter plaintext: ");
                     scanner.nextLine();
                     String plainText = scanner.nextLine();
@@ -108,6 +115,7 @@ public class MiniAESDemo {
                 }
 
                 case 5: {
+                    //Encryption of Text with random Key 
                     System.out.print("\nEnter binary string plaintext: ");
                     scanner.nextLine();
                     String plainText = scanner.nextLine();
@@ -127,6 +135,7 @@ public class MiniAESDemo {
                 }
 
                 case 6: {
+                    //Decryption of Text with random Key 
                     System.out.print("\nEnter cipher text: ");
                     scanner.nextLine();
                     String cipherText = scanner.nextLine();

@@ -27,9 +27,11 @@ public class RandomKey {
      * <p>This method generates a random 16-bit binary key using <b>Math.random()</b>.</p>
      */
     private void generateRandomKey() {
+        //Iterates through the Array and sets random number
         for (int i = 0; i < 4; i++) {
             randomKey[i] = (int) (Math.random() * 15);
         }
+        //End of loop
     }
 
     /**
