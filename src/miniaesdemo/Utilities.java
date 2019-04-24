@@ -1,21 +1,15 @@
 package miniaesdemo;
 
 /**
- * <p>This class contains helper methods.</p>
+ * <p>This class contains helper methods used in the MiniAES calculations.</p>
  *
  * @author Team Caligula
  * @version 1.0
  * @since 0.1
  */
 public class Utilities {
-
-    //==================================================================================================
-    // From String to Integer Array ====================================================================
-    //==================================================================================================
     /**
-     * <h2>Conversion from String to String Array</h2>
-     * <p>
-     * This method converts a String object to a String Array object of four
+     * <p>This method converts a String object to a String Array object of four
      * elements</p>
      *
      * @param stringToConvert A binary string.
@@ -35,10 +29,7 @@ public class Utilities {
     }
 
     /**
-     * <h2>Conversion from String Array to Integer Array</h2>
-     *
-     * <p>
-     * This method converts a String Array to Integer Array that has the same
+     * <p>This method converts a String Array to Integer Array that has the same
      * length.</p>
      *
      * @param stringToConvert A String Array of four elements.
@@ -61,10 +52,7 @@ public class Utilities {
     }
 
     /**
-     * <h2>Conversion from String to Integer Array</h2>
-     *
-     * <p>
-     * This method converts a String to Integer Array.</p>
+     * <p>This method converts a String to Integer Array.</p>
      *
      * @param stringToConvert A binary String.
      *
@@ -74,14 +62,8 @@ public class Utilities {
         return stringArrayToIntArray(stringToStringArray(stringToConvert));
     }
 
-    //==================================================================================================
-    // From Integer Array to String ====================================================================
-    //==================================================================================================
     /**
-     * <h2>Conversion from Integer Array to String Array</h2>
-     *
-     * <p>
-     * This method converts a Integer Array to String Array.</p>
+     * <p>This method converts a Integer Array to String Array.</p>
      *
      * @param intToConvert An Integer Array of four elements.
      *
@@ -105,10 +87,7 @@ public class Utilities {
     }
 
     /**
-     * <h2>Formatting a binary string</h2>
-     *
-     * <p>
-     * This method formats a 4-bit binary string to add padding such that the
+     * <p>This method formats a 4-bit binary string to add padding such that the
      * string is always of length four.</p>
      *
      * @param binaryString A 4-bit binary String.
@@ -120,9 +99,7 @@ public class Utilities {
     }
 
     /**
-     * <h2>Conversion from String Array to String</h2>
-     * <p>
-     * This method converts a String Array to String.</p>
+     * <p>This method converts a String Array to String.</p>
      *
      * @param stringArrayToConvert A String Array of four elements.
      *
@@ -145,10 +122,7 @@ public class Utilities {
     }
 
     /**
-     * <h2>Conversion from Integer Array to String</h2>
-     *
-     * <p>
-     * This method converts an Integer Array to a 16-bit binary String.</p>
+     * <p>This method converts an Integer Array to a 16-bit binary String.</p>
      *
      * @param intArrayToConvert An Integer Array of four elements.
      *
@@ -159,10 +133,7 @@ public class Utilities {
     }
 
     /**
-     * <h2>Conversion from Integer Array to Hex String</h2>
-     *
-     * <p>
-     * This method converts a Integer Array to a Hexadecimal String.</p>
+     * <p>This method converts a Integer Array to a Hexadecimal String.</p>
      *
      * @param intArray An Integer Array.
      *
@@ -179,8 +150,6 @@ public class Utilities {
     }
     
     /**
-     * <h2>Conversion from Hex String to Integer Array </h2>
-     *
      * <p>This method converts a Integer Array to a Hexadecimal String.</p>
      *
      * @param hexString A Hexadecimal String .
@@ -199,7 +168,13 @@ public class Utilities {
         return output;
     }
     
-    
+    /**
+     * <p>This method segments input data and pads it before its sent for encryption it. See <b><u>{@link MiniAES#EncryptText(java.lang.String, java.lang.String)}</u></b> method.</p>
+     *
+     * @param inputData A string containing the input data provided by the user.
+     *
+     * @return Returns an Integer Matrix of the input data split into rows of 4 characters, the last one may contain padding.
+     */
     public static int[][] segmentAndPadData(String inputData) {
         final int inputDataLength = inputData.length();
         final int numOfSegments = (int) Math.ceil(inputDataLength / 4.0);
@@ -229,6 +204,13 @@ public class Utilities {
         return segmentedData;
     }
 
+    /**
+     * <p>This method segments input data before its sent for decryption it. See <b><u>{@link MiniAES#EncryptText(java.lang.String, java.lang.String)}</u></b> method.</p>
+     *
+     * @param inputData An integer array containing the input data provided by the user.
+     *
+     * @return Returns an Integer Matrix of the input data split into rows of 4 characters.
+     */
     public static int[][] segmentData(int[] inputData) {
         final int inputDataLength = inputData.length;
         final int numOfSegments = inputDataLength / 4;
@@ -246,6 +228,13 @@ public class Utilities {
         return segmentedData;
     }
 
+    /**
+     * <p>This method removes the padding from the last segment of the input data before its. See <b><u>{@link MiniAES#DecryptText(java.lang.String, java.lang.String)}</u></b> method.</p>
+     *
+     * @param paddedInput An integer array containing the last segment of the input which might contain padding.
+     *
+     * @return Returns an Integer matrix of the input data with the padding removed from it.
+     */
     public static int[] removePadding(int[] paddedInput) {
         int checkPadding = paddedInput[paddedInput.length - 1];
 
@@ -263,11 +252,7 @@ public class Utilities {
     }
 
     /**
-     * <h2>Team Caligula Logo</h2>
-     *
-     * <p>
-     * This method displays Team Caligula's ascii logo. Crafted by Petar
-     * Baltov.</p>
+     * <p>This method displays Team Caligula's ascii logo. Crafted by Petar Baltov.</p>
      */
     public static void printLogo() {
         System.out.println(""
