@@ -1,2 +1,2 @@
 # MiniAES
-The minified AES algorithm. Brought to you by Team Caligula.
+The minified AES algorithm. A University project.
